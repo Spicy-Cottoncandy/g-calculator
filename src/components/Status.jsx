@@ -113,7 +113,7 @@ export const BaseStatus = (props) => {
           </tr>
           <tr>
             <DamageBonusTd
-              title="Anemo"
+              title="風元素ダメージ"
               basevalue={10}
               bonusparcent={DamageBonus["Anemo"]}
               onChange={onChangeAnemoDamageBonus}
@@ -121,7 +121,7 @@ export const BaseStatus = (props) => {
           </tr>
           <tr>
             <DamageBonusTd
-              title="Cryo"
+              title="氷元素ダメージ"
               basevalue={10}
               bonusparcent={DamageBonus["Cryo"]}
               onChange={onChangeCryoDamageBonus}
@@ -129,7 +129,7 @@ export const BaseStatus = (props) => {
           </tr>
           <tr>
             <DamageBonusTd
-              title="Dendro"
+              title="草元素ダメージ"
               basevalue={10}
               bonusparcent={DamageBonus["Dendro"]}
               onChange={onChangeDendroDamageBonus}
@@ -137,7 +137,7 @@ export const BaseStatus = (props) => {
           </tr>
           <tr>
             <DamageBonusTd
-              title="Electro"
+              title="雷元素ダメージ"
               basevalue={10}
               bonusparcent={DamageBonus["Electro"]}
               onChange={onChangeElectroDamageBonus}
@@ -145,7 +145,7 @@ export const BaseStatus = (props) => {
           </tr>
           <tr>
             <DamageBonusTd
-              title="Geo"
+              title="岩元素ダメージ"
               basevalue={10}
               bonusparcent={DamageBonus["Geo"]}
               onChange={onChangeGeoDamageBonus}
@@ -153,7 +153,7 @@ export const BaseStatus = (props) => {
           </tr>
           <tr>
             <DamageBonusTd
-              title="Hydro"
+              title="水元素ダメージ"
               basevalue={10}
               bonusparcent={DamageBonus["Hydro"]}
               onChange={onChangeHydroDamageBonus}
@@ -161,7 +161,7 @@ export const BaseStatus = (props) => {
           </tr>
           <tr>
             <DamageBonusTd
-              title="Pyro"
+              title="炎元素ダメージ"
               basevalue={10}
               bonusparcent={DamageBonus["Pyro"]}
               onChange={onChangePyroDamageBonus}
@@ -169,7 +169,7 @@ export const BaseStatus = (props) => {
           </tr>
           <tr>
             <DamageBonusTd
-              title="Physical"
+              title="物理ダメージ"
               basevalue={10}
               bonusparcent={DamageBonus["Physical"]}
               onChange={onChangePhysicalDamageBonus}
