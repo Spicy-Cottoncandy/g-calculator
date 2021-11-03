@@ -1,0 +1,69 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+.SelectMenu {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.BaseStatus {
+  font-size: 0.7rem;
+  background-color: #c1ffff;
+  width: 370px;
+  padding: 8px;
+  margin: 0px;
+  border-radius: 8px;
+}
+
+.td-title {
+  width: 200px;
+}
+
+.td-basevalue {
+  width: 10px;
+  text-align: right;
+}
+
+.td-bonusvalue {
+  width: 100px;
+  /* overflow: hidden; */
+}
+
+.td-bonusvalue p {
+  float: left;
+  padding: 10px 10px;
+  text-align: right;
+}
+
+/* Inputボックス ------------------------- */
+.Input {
+  font-family: sans-serif;
+  border: none;
+  outline: none;
+  padding-bottom: 8px;
+  box-sizing: border-box;
+}
+
+.text_underline {
+  width: 9em;
+  position: relative; /*.text_underline::beforeの親要素*/
+  border-top: 1px solid #c2c2c2; /*text3の下線*/
+}
+
+/*共通のstyle*/
+.text_underline::before,
+.text_underline::after {
+  position: absolute;
+  bottom: 0px; /*中央配置*/
+  width: 0px; /*アニメーションで0pxから50%に*/
+  height: 1px; /*高さ*/
+  content: "";
+  background-color: #3be5ae; /*アニメーションの色*/
+}
+
+.Input:hover + .text_underline::before,
+.Input:hover + .text_underline::after {
+  width: 100%;
+}
+/*  ------------------------- */
