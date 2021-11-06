@@ -3,25 +3,45 @@ import React, { useState } from "react";
 //
 import { CharacterLevels, CharacterBase } from "./data/items";
 //
-import { SelectMenu, InputNumber } from "./Parts";
 import { BaseStatus } from "./components/Status";
+import { CalculationBase } from "./class/CalculationBase";
+import { Character } from "./components/Character";
+import { Level } from "./components/Level";
 
 export const App = () => {
-  const [selectedItem, setSelectedItem] = useState("---");
+  const [calculationBase, setCalculationBase] = useState(new CalculationBase());
+  const onChangeCharacter = (event) => {
+    setCalculationBase({
+      ...calculationBase,
+      character: { ...calculationBase.character, id: event.target.value }
+    });
+  };
 
-  const onChangeSelectMenu = (event) => {
-    setSelectedItem(event.target.value);
+  const onChangeLevel = (event) => {
+    setCalculationBase({
+      ...calculationBase,
+      character: {
+        ...calculationBase.character,
+        levelRank: event.target.value,
+        level: Number(event.target.value.substr(-6, 2))
+      }
+    });
   };
 
   return (
     <>
-      <SelectMenu items={CharacterLevels} onChange={onChangeSelectMenu} />
-
-      <div className="BaseStatus">
-        {typeof CharacterBase.HP[selectedItem] !== "undefined" &&
-        typeof CharacterBase.ATK[selectedItem] !== "undefined" &&
-        typeof CharacterBase.DEF[selectedItem] !== "undefined" ? (
-          <BaseStatus level={selectedItem} />
+      <div className="CharacterArea">
+        <Character onChange={onChangeCharacter} />
+        <Level onChange={onChangeLevel} />
+      </div>
+      <div className="BaseStatusArea">
+        {typeof CharacterBase.HP[calculationBase.character.levelRank] !==
+          "undefined" &&
+        typeof CharacterBase.ATK[calculationBase.character.levelRank] !==
+          "undefined" &&
+        typeof CharacterBase.DEF[calculationBase.character.levelRank] !==
+          "undefined" ? (
+          <BaseStatus level={calculationBase.character.levelRank} />
         ) : (
           <p>データ無し</p>
         )}
