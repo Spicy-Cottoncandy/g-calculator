@@ -1,3 +1,6 @@
+import { characters } from "../data/character/characters";
+import { Status } from "./Status";
+
 export class CalculationBase {
   constructor() {
     this.character = {
@@ -44,7 +47,12 @@ export class CalculationBase {
         mainStat: ""
       }
     };
-    this.extendStatus = {
+    this.baseStatus = new Status();
+    this.extendStatus = new Status();
+  }
+
+  initBaseStatus() {
+    this.baseStatus = {
       hp: 0,
       hpPercent: 0.0,
       atk: 0,

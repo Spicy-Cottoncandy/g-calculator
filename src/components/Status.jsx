@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { CharacterLevels, CharacterBase } from "../data/items";
 import { InputNumber } from "../Parts";
 import { calculateBonus } from "../functions/Util";
 
 export const BaseStatus = (props) => {
-  const { level } = props;
+  const { level, calculationBase } = props;
 
   const [HPBonus, setHPBonus] = useState(0);
   const [ATKBonus, setATKBonus] = useState(0);
@@ -69,24 +68,24 @@ export const BaseStatus = (props) => {
           <tr>
             <BaseStatusTd
               title="Base HP"
-              basevalue={CharacterBase.HP[level]}
-              bonusparcent={HPBonus}
+              basevalue={calculationBase.baseStatus.hp}
+              bonusparcent={calculationBase.extendStatus.hpPercent}
               onChange={onChangeHPBonus}
             />
           </tr>
           <tr>
             <BaseStatusTd
               title="Base ATK"
-              basevalue={CharacterBase.ATK[level]}
-              bonusparcent={ATKBonus}
+              basevalue={calculationBase.baseStatus.atk}
+              bonusparcent={calculationBase.extendStatus.atkPercent}
               onChange={onChangeATKBonus}
             />
           </tr>
           <tr>
             <BaseStatusTd
               title="Base DEF"
-              basevalue={CharacterBase.DEF[level]}
-              bonusparcent={DEFBonus}
+              basevalue={calculationBase.baseStatus.def}
+              bonusparcent={calculationBase.baseStatus.defPercent}
               onChange={onChangeDEFBonus}
             />
           </tr>

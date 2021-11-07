@@ -1,30 +1,59 @@
 import "./styles.css";
 import React, { useState } from "react";
-//
-import { CharacterLevels, CharacterBase } from "./data/items";
-//
+
+//components
 import { BaseStatus } from "./components/Status";
-import { CalculationBase } from "./class/CalculationBase";
 import { Character } from "./components/Character";
 import { Level } from "./components/Level";
+
+//data
+import { characters } from "./data/character/characters";
+
+//class
+import { CalculationBase } from "./class/CalculationBase";
+import { changeCharacterStatus } from "./class/Status";
 
 export const App = () => {
   const [calculationBase, setCalculationBase] = useState(new CalculationBase());
   const onChangeCharacter = (event) => {
-    setCalculationBase({
-      ...calculationBase,
-      character: { ...calculationBase.character, id: event.target.value }
-    });
-  };
+    const newid = Number(event.target.value);
+    const newBaseStatus = { ...calculationBase.baseStatus };
 
-  const onChangeLevel = (event) => {
+    changeCharacterStatus(
+      newBaseStatus,
+      newid,
+      calculationBase.character.levelRank
+    );
+
     setCalculationBase({
       ...calculationBase,
       character: {
         ...calculationBase.character,
-        levelRank: event.target.value,
-        level: Number(event.target.value.substr(-6, 2))
-      }
+        id: newid
+      },
+      baseStatus: newBaseStatus
+    });
+  };
+
+  const onChangeLevel = (event) => {
+    const newLevel = Number(event.target.value.substr(-6, 2));
+    const newLevelRank = event.target.value;
+    const newBaseStatus = { ...calculationBase.baseStatus };
+
+    changeCharacterStatus(
+      newBaseStatus,
+      calculationBase.character.id,
+      newLevelRank
+    );
+
+    setCalculationBase({
+      ...calculationBase,
+      character: {
+        ...calculationBase.character,
+        levelRank: newLevelRank,
+        level: newLevel
+      },
+      baseStatus: newBaseStatus
     });
   };
 
@@ -35,13 +64,13 @@ export const App = () => {
         <Level onChange={onChangeLevel} />
       </div>
       <div className="BaseStatusArea">
-        {typeof CharacterBase.HP[calculationBase.character.levelRank] !==
-          "undefined" &&
-        typeof CharacterBase.ATK[calculationBase.character.levelRank] !==
-          "undefined" &&
-        typeof CharacterBase.DEF[calculationBase.character.levelRank] !==
-          "undefined" ? (
-          <BaseStatus level={calculationBase.character.levelRank} />
+        {typeof characters[calculationBase.character.id] !== "undefined" ? (
+          <>
+            <BaseStatus
+              level={calculationBase.character.levelRank}
+              calculationBase={calculationBase}
+            />
+          </>
         ) : (
           <p>データ無し</p>
         )}
