@@ -1,13 +1,9 @@
 import React, { useState } from "react";
-import { InputNumber } from "../Parts";
+import { InputNumber } from "../components/Common";
 import { calculateBonus } from "../functions/Util";
 
 export const BaseStatus = (props) => {
-  const { level, calculationBase } = props;
-
-  const [HPBonus, setHPBonus] = useState(0);
-  const [ATKBonus, setATKBonus] = useState(0);
-  const [DEFBonus, setDEFBonus] = useState(0);
+  const { calculationBase, onchangeExtendStatus } = props;
 
   const [DamageBonus, setDamageBonus] = useState({
     Anemo: 0, //風
@@ -19,16 +15,6 @@ export const BaseStatus = (props) => {
     Pyro: 0, //炎
     Physical: 0 //物理
   });
-
-  const onChangeHPBonus = (event) => {
-    setHPBonus(event.target.value);
-  };
-  const onChangeATKBonus = (event) => {
-    setATKBonus(event.target.value);
-  };
-  const onChangeDEFBonus = (event) => {
-    setDEFBonus(event.target.value);
-  };
 
   const onChangeAnemoDamageBonus = (event) => {
     setDamageBonus({ ...DamageBonus, Anemo: event.target.value });
@@ -68,25 +54,28 @@ export const BaseStatus = (props) => {
           <tr>
             <BaseStatusTd
               title="Base HP"
+              item="hpPercent"
               basevalue={calculationBase.baseStatus.hp}
               bonusparcent={calculationBase.extendStatus.hpPercent}
-              onChange={onChangeHPBonus}
+              onChange={onchangeExtendStatus}
             />
           </tr>
           <tr>
             <BaseStatusTd
               title="Base ATK"
+              item="atkPercent"
               basevalue={calculationBase.baseStatus.atk}
               bonusparcent={calculationBase.extendStatus.atkPercent}
-              onChange={onChangeATKBonus}
+              onChange={onchangeExtendStatus}
             />
           </tr>
           <tr>
             <BaseStatusTd
               title="Base DEF"
+              item="defPercent"
               basevalue={calculationBase.baseStatus.def}
-              bonusparcent={calculationBase.baseStatus.defPercent}
-              onChange={onChangeDEFBonus}
+              bonusparcent={calculationBase.extendStatus.defPercent}
+              onChange={onchangeExtendStatus}
             />
           </tr>
           <tr>
@@ -181,7 +170,7 @@ export const BaseStatus = (props) => {
 };
 
 const BaseStatusTd = (props) => {
-  const { title, basevalue, bonusparcent, onChange } = props;
+  const { title, item, basevalue, bonusparcent, onChange } = props;
   return (
     <>
       <td className="td-title">{title}</td>
@@ -191,7 +180,7 @@ const BaseStatusTd = (props) => {
         <p>{Math.abs(calculateBonus(basevalue, bonusparcent))}</p>
       </td>
       <td>
-        <InputNumber value={bonusparcent} onChange={onChange} />
+        <InputNumber item={item} value={bonusparcent} onChange={onChange} />
       </td>
     </>
   );

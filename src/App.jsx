@@ -1,5 +1,5 @@
 import "./styles.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 //components
 import { BaseStatus } from "./components/Status";
@@ -57,6 +57,16 @@ export const App = () => {
     });
   };
 
+  const onChangeExtendStatus = (event) => {
+    setCalculationBase({
+      ...calculationBase,
+      extendStatus: {
+        ...calculationBase.extendStatus,
+        [event.target.dataset.item]: event.target.value
+      }
+    });
+  };
+
   return (
     <>
       <div className="CharacterArea">
@@ -69,6 +79,7 @@ export const App = () => {
             <BaseStatus
               level={calculationBase.character.levelRank}
               calculationBase={calculationBase}
+              onchangeExtendStatus={onChangeExtendStatus}
             />
           </>
         ) : (

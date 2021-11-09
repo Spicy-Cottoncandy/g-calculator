@@ -17,3 +17,19 @@ export const SelectMenu = (props) => {
     </div>
   );
 };
+
+export const InputNumber = (props) => {
+  const { value, item, onChange } = props;
+  return (
+    <div className="InputNumber">
+      <input
+        data-item={item}
+        type="number"
+        className="Input"
+        value={value}
+        onChange={onChange}
+      ></input>
+      <div className="text_underline"></div>
+    </div>
+  );
+};
