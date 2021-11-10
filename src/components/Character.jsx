@@ -1,12 +1,17 @@
 import React from "react";
 import { SelectMenu } from "./Common";
+import { characters } from "../data/character/characters";
 
 export const Character = (props) => {
   const { onChange } = props;
-  const characters = [{ value: 1, text: "胡桃" }];
+  const items = [];
+  Object.keys(characters).forEach((key) => {
+    items.push({ value: key, text: characters[key].name });
+  });
+
   return (
     <>
-      <SelectMenu items={characters} onChange={onChange} />
+      <SelectMenu items={items} isRequired={false} onChange={onChange} />
     </>
   );
 };

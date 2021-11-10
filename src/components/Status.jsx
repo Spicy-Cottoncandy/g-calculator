@@ -1,168 +1,190 @@
-import React, { useState } from "react";
+import React from "react";
 import { InputNumber } from "../components/Common";
 import { calculateBonus } from "../functions/Util";
 
 export const BaseStatus = (props) => {
   const { calculationBase, onchangeExtendStatus } = props;
 
-  const [DamageBonus, setDamageBonus] = useState({
-    Anemo: 0, //風
-    Cryo: 0, //氷
-    Dendro: 0, //草
-    Electro: 0, //雷
-    Geo: 0, //岩
-    Hydro: 0, //水
-    Pyro: 0, //炎
-    Physical: 0 //物理
-  });
-
-  const onChangeAnemoDamageBonus = (event) => {
-    setDamageBonus({ ...DamageBonus, Anemo: event.target.value });
-  };
-
-  const onChangeCryoDamageBonus = (event) => {
-    setDamageBonus({ ...DamageBonus, Cryo: event.target.value });
-  };
-
-  const onChangeDendroDamageBonus = (event) => {
-    setDamageBonus({ ...DamageBonus, Dendro: event.target.value });
-  };
-  const onChangeElectroDamageBonus = (event) => {
-    setDamageBonus({ ...DamageBonus, Electro: event.target.value });
-  };
-
-  const onChangeGeoDamageBonus = (event) => {
-    setDamageBonus({ ...DamageBonus, Geo: event.target.value });
-  };
-
-  const onChangeHydroDamageBonus = (event) => {
-    setDamageBonus({ ...DamageBonus, Hydro: event.target.value });
-  };
-
-  const onChangePyroDamageBonus = (event) => {
-    setDamageBonus({ ...DamageBonus, Pyro: event.target.value });
-  };
-
-  const onChangePhysicalDamageBonus = (event) => {
-    setDamageBonus({ ...DamageBonus, Physical: event.target.value });
-  };
-
   return (
     <div>
       <table>
         <tbody>
           <tr>
-            <BaseStatusTd
+            <BasicStatusTd
               title="Base HP"
               item="hpPercent"
-              basevalue={calculationBase.baseStatus.hp}
-              bonusparcent={calculationBase.extendStatus.hpPercent}
+              baseValue={calculationBase.baseStatus.hp}
+              bonusPercent={calculationBase.extendStatus.hpPercent}
               onChange={onchangeExtendStatus}
             />
           </tr>
           <tr>
-            <BaseStatusTd
+            <BasicStatusTd
               title="Base ATK"
               item="atkPercent"
-              basevalue={calculationBase.baseStatus.atk}
-              bonusparcent={calculationBase.extendStatus.atkPercent}
+              baseValue={calculationBase.baseStatus.atk}
+              bonusPercent={calculationBase.extendStatus.atkPercent}
               onChange={onchangeExtendStatus}
             />
           </tr>
           <tr>
-            <BaseStatusTd
+            <BasicStatusTd
               title="Base DEF"
               item="defPercent"
-              basevalue={calculationBase.baseStatus.def}
-              bonusparcent={calculationBase.extendStatus.defPercent}
+              baseValue={calculationBase.baseStatus.def}
+              bonusPercent={calculationBase.extendStatus.defPercent}
               onChange={onchangeExtendStatus}
             />
           </tr>
           <tr>
-            <td>元素熟知</td>
+            <AdvancedStatusTd
+              title="元素熟知"
+              item="elementalMastery"
+              baseValue={calculationBase.baseStatus.elementalMastery}
+              bonusValue={calculationBase.extendStatus.elementalMastery}
+              onChange={onchangeExtendStatus}
+            />
           </tr>
           <tr>
-            <td>会心率</td>
+            <AdvancedStatusTd
+              title="会心率"
+              item="criticalRate"
+              unit="%"
+              baseValue={calculationBase.baseStatus.criticalRate}
+              bonusValue={calculationBase.extendStatus.criticalRate}
+              onChange={onchangeExtendStatus}
+            />
           </tr>
           <tr>
-            <td>会心ダメージ</td>
+            <AdvancedStatusTd
+              title="会心ダメージ"
+              item="criticalDamage"
+              unit="%"
+              baseValue={calculationBase.baseStatus.criticalDamage}
+              bonusValue={calculationBase.extendStatus.criticalDamage}
+              onChange={onchangeExtendStatus}
+            />
           </tr>
           <tr>
-            <td>与える治癒効果</td>
+            <AdvancedStatusTd
+              title="与える治癒効果"
+              item="healingBonus"
+              unit="%"
+              baseValue={calculationBase.baseStatus.healingBonus}
+              bonusValue={calculationBase.extendStatus.healingBonus}
+              onChange={onchangeExtendStatus}
+            />
           </tr>
           <tr>
-            <td>受ける治癒効果</td>
+            <AdvancedStatusTd
+              title="受ける治癒効果"
+              item="incomingHealingBonus"
+              unit="%"
+              baseValue={calculationBase.baseStatus.incomingHealingBonus}
+              bonusValue={calculationBase.extendStatus.incomingHealingBonus}
+              onChange={onchangeExtendStatus}
+            />
           </tr>
           <tr>
-            <td>元素チャージ効率</td>
+            <AdvancedStatusTd
+              title="元素チャージ効率"
+              item="energyRecharge"
+              unit="%"
+              baseValue={calculationBase.baseStatus.energyRecharge}
+              bonusValue={calculationBase.extendStatus.energyRecharge}
+              onChange={onchangeExtendStatus}
+            />
+            <td></td>
           </tr>
           <tr>
-            <td>シールド強化</td>
+            <AdvancedStatusTd
+              title="シールド強化"
+              item="shieldStrength"
+              unit="%"
+              baseValue={calculationBase.baseStatus.shieldStrength}
+              bonusValue={calculationBase.extendStatus.shieldStrength}
+              onChange={onchangeExtendStatus}
+            />
+            <td></td>
           </tr>
           <tr>
-            <BaseStatusTd
+            <AdvancedStatusTd
               title="風元素ダメージ"
               item="damageBonus.Anemo"
               unit="%"
-              basevalue={calculationBase.baseStatus.damageBonus.Anemo}
-              bonusparcent={calculationBase.extendStatus.damageBonus.Anemo}
+              baseValue={calculationBase.baseStatus.damageBonus.Anemo}
+              bonusValue={calculationBase.extendStatus.damageBonus.Anemo}
               onChange={onchangeExtendStatus}
             />
           </tr>
           <tr>
-            <DamageBonusTd
+            <AdvancedStatusTd
               title="氷元素ダメージ"
-              basevalue={10}
-              bonusparcent={DamageBonus["Cryo"]}
-              onChange={onChangeCryoDamageBonus}
+              item="damageBonus.Cryo"
+              unit="%"
+              baseValue={calculationBase.baseStatus.damageBonus.Cryo}
+              bonusValue={calculationBase.extendStatus.damageBonus.Cryo}
+              onChange={onchangeExtendStatus}
             />
           </tr>
           <tr>
-            <DamageBonusTd
+            <AdvancedStatusTd
               title="草元素ダメージ"
-              basevalue={10}
-              bonusparcent={DamageBonus["Dendro"]}
-              onChange={onChangeDendroDamageBonus}
+              item="damageBonus.Dendro"
+              unit="%"
+              baseValue={calculationBase.baseStatus.damageBonus.Dendro}
+              bonusValue={calculationBase.extendStatus.damageBonus.Dendro}
+              onChange={onchangeExtendStatus}
             />
           </tr>
           <tr>
-            <DamageBonusTd
+            <AdvancedStatusTd
               title="雷元素ダメージ"
-              basevalue={10}
-              bonusparcent={DamageBonus["Electro"]}
-              onChange={onChangeElectroDamageBonus}
+              item="damageBonus.Electro"
+              unit="%"
+              baseValue={calculationBase.baseStatus.damageBonus.Electro}
+              bonusValue={calculationBase.extendStatus.damageBonus.Electro}
+              onChange={onchangeExtendStatus}
             />
           </tr>
           <tr>
-            <DamageBonusTd
+            <AdvancedStatusTd
               title="岩元素ダメージ"
-              basevalue={10}
-              bonusparcent={DamageBonus["Geo"]}
-              onChange={onChangeGeoDamageBonus}
+              item="damageBonus.Geo"
+              unit="%"
+              baseValue={calculationBase.baseStatus.damageBonus.Geo}
+              bonusValue={calculationBase.extendStatus.damageBonus.Geo}
+              onChange={onchangeExtendStatus}
             />
           </tr>
           <tr>
-            <DamageBonusTd
+            <AdvancedStatusTd
               title="水元素ダメージ"
-              basevalue={10}
-              bonusparcent={DamageBonus["Hydro"]}
-              onChange={onChangeHydroDamageBonus}
+              item="damageBonus.Hydro"
+              unit="%"
+              baseValue={calculationBase.baseStatus.damageBonus.Hydro}
+              bonusValue={calculationBase.extendStatus.damageBonus.Hydro}
+              onChange={onchangeExtendStatus}
             />
           </tr>
           <tr>
-            <DamageBonusTd
+            <AdvancedStatusTd
               title="炎元素ダメージ"
-              basevalue={10}
-              bonusparcent={DamageBonus["Pyro"]}
-              onChange={onChangePyroDamageBonus}
+              item="damageBonus.Pyro"
+              unit="%"
+              baseValue={calculationBase.baseStatus.damageBonus.Pyro}
+              bonusValue={calculationBase.extendStatus.damageBonus.Pyro}
+              onChange={onchangeExtendStatus}
             />
           </tr>
           <tr>
-            <DamageBonusTd
+            <AdvancedStatusTd
               title="物理ダメージ"
-              basevalue={10}
-              bonusparcent={DamageBonus["Physical"]}
-              onChange={onChangePhysicalDamageBonus}
+              item="damageBonus.Physical"
+              unit="%"
+              baseValue={calculationBase.baseStatus.damageBonus.Physical}
+              bonusValue={calculationBase.extendStatus.damageBonus.Physical}
+              onChange={onchangeExtendStatus}
             />
           </tr>
         </tbody>
@@ -171,37 +193,49 @@ export const BaseStatus = (props) => {
   );
 };
 
-const BaseStatusTd = (props) => {
-  const { title, item, unit, basevalue, bonusparcent, onChange } = props;
+const BasicStatusTd = (props) => {
+  const { title, item, unit, baseValue, bonusPercent, onChange } = props;
   return (
     <>
       <td className="td-title">{title}</td>
       <td className="td-basevalue">
-        {basevalue}
+        {baseValue}
         {unit !== null && unit}
       </td>
       <td className="td-bonusvalue">
-        <p className="p-bonus">{bonusparcent >= 0 ? "+" : "-"}</p>
+        <p className="p-bonus">{bonusPercent >= 0 ? "+" : "-"}</p>
         <p>
-          {Math.abs(calculateBonus(basevalue, bonusparcent))}
+          {Math.abs(calculateBonus(baseValue, bonusPercent))}
           {unit !== null && unit}
         </p>
       </td>
       <td>
-        <InputNumber item={item} value={bonusparcent} onChange={onChange} />
+        <InputNumber item={item} value={bonusPercent} onChange={onChange} />
       </td>
     </>
   );
 };
 
-const DamageBonusTd = (props) => {
-  const { title, basevalue, bonusparcent, onChange } = props;
+const AdvancedStatusTd = (props) => {
+  const { title, item, unit, baseValue, bonusValue, onChange } = props;
   return (
     <>
-      <td>{title}</td>
-      <td>{Number(basevalue) + Number(bonusparcent)}%</td>
+      <td className="td-title">{title}</td>
+      <td className="td-basevalue">
+        {baseValue}
+        {unit !== null && unit}
+      </td>
+      <td className="td-bonusvalue">
+        <p className="p-bonus">
+          {Number(baseValue) + Number(bonusValue) >= 0 ? "+" : "-"}
+        </p>
+        <p>
+          {Number(baseValue) + Number(bonusValue)}
+          {unit !== null && unit}
+        </p>
+      </td>
       <td>
-        <InputNumber value={bonusparcent} onChange={onChange} />
+        <InputNumber item={item} value={"bonusValue"} onChange={onChange} />
       </td>
     </>
   );

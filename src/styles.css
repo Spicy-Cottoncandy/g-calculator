@@ -17,7 +17,7 @@
 }
 
 .td-title {
-  width: 200px;
+  width: 100px;
 }
 
 .td-basevalue {
@@ -32,13 +32,13 @@
 
 .td-bonusvalue p {
   float: left;
-  padding: 10px 10px;
+  padding: 0px 10px;
   text-align: right;
 }
 
 /* Inputボックス ------------------------- */
 .Input {
-  width: 100px;
+  width: 50px;
 }
 
 /*  ------------------------- */

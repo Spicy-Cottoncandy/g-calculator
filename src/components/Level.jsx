@@ -22,7 +22,7 @@ export const Level = (props) => {
 
   return (
     <>
-      <SelectMenu items={levels} onChange={onChange} />
+      <SelectMenu items={levels} isRequired={true} onChange={onChange} />
     </>
   );
 };
