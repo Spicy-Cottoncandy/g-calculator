@@ -58,11 +58,22 @@ export const App = () => {
   };
 
   const onChangeExtendStatus = (event) => {
+    const newExtendStatus = { ...calculationBase.extendStatus };
+    let targetObject = newExtendStatus;
+    const propertys = event.target.dataset.item.split(".");
+    const targetProperty = propertys.pop();
+
+    //HTMLのカスタムデータ属性で更新するプロパティを指定する。
+    //オジェクトがネストしている場合は目標のプロパティまで探索する。
+    propertys.forEach((property) => {
+      targetObject = targetObject[property];
+    });
+    targetObject[targetProperty] = Number(event.target.value);
+
     setCalculationBase({
       ...calculationBase,
       extendStatus: {
-        ...calculationBase.extendStatus,
-        [event.target.dataset.item]: event.target.value
+        ...newExtendStatus
       }
     });
   };

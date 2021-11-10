@@ -100,11 +100,13 @@ export const BaseStatus = (props) => {
             <td>シールド強化</td>
           </tr>
           <tr>
-            <DamageBonusTd
+            <BaseStatusTd
               title="風元素ダメージ"
-              basevalue={10}
-              bonusparcent={DamageBonus["Anemo"]}
-              onChange={onChangeAnemoDamageBonus}
+              item="damageBonus.Anemo"
+              unit="%"
+              basevalue={calculationBase.baseStatus.damageBonus.Anemo}
+              bonusparcent={calculationBase.extendStatus.damageBonus.Anemo}
+              onChange={onchangeExtendStatus}
             />
           </tr>
           <tr>
@@ -170,14 +172,20 @@ export const BaseStatus = (props) => {
 };
 
 const BaseStatusTd = (props) => {
-  const { title, item, basevalue, bonusparcent, onChange } = props;
+  const { title, item, unit, basevalue, bonusparcent, onChange } = props;
   return (
     <>
       <td className="td-title">{title}</td>
-      <td className="td-basevalue">{basevalue}</td>
+      <td className="td-basevalue">
+        {basevalue}
+        {unit !== null && unit}
+      </td>
       <td className="td-bonusvalue">
         <p className="p-bonus">{bonusparcent >= 0 ? "+" : "-"}</p>
-        <p>{Math.abs(calculateBonus(basevalue, bonusparcent))}</p>
+        <p>
+          {Math.abs(calculateBonus(basevalue, bonusparcent))}
+          {unit !== null && unit}
+        </p>
       </td>
       <td>
         <InputNumber item={item} value={bonusparcent} onChange={onChange} />
