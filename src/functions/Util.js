@@ -5,3 +5,7 @@ export const calculateBonus = (base, percent) => {
 export const calculateBonusPercent = (base, percent) => {
   return Math.floor(base * (percent / 100));
 };
+
+export const floorStatus = (value, status) => {
+  return Math.floor(value * 10 ** 1) / 10 ** 1;
+};

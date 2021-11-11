@@ -1,3 +1,10 @@
+body {
+  margin-right: auto;
+  margin-left: auto;
+  background-color: #ffffff;
+  width: 370px;
+}
+
 .App {
   font-family: sans-serif;
   text-align: center;
@@ -7,9 +14,19 @@
   text-align: center;
 }
 
+.CharacterArea {
+  font-size: 0.7rem;
+  background-color: #bfffff;
+  width: 370px;
+  padding: 8px;
+  margin: 0px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+}
+
 .BaseStatusArea {
   font-size: 0.7rem;
-  background-color: #c1ffff;
+  background-color: #bfffff;
   width: 370px;
   padding: 8px;
   margin: 0px;

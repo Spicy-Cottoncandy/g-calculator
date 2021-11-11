@@ -26,7 +26,8 @@ export const InputNumber = (props) => {
         data-item={item}
         type="number"
         className="Input"
-        value={value}
+        placeholder="0"
+        value={value !== 0 && value}
         onChange={onChange}
       ></input>
       <div className="text_underline"></div>

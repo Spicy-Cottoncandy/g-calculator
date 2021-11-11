@@ -235,7 +235,7 @@ const AdvancedStatusTd = (props) => {
         </p>
       </td>
       <td>
-        <InputNumber item={item} value={"bonusValue"} onChange={onChange} />
+        <InputNumber item={item} value={bonusValue} onChange={onChange} />
       </td>
     </>
   );

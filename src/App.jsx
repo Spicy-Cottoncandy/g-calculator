@@ -13,6 +13,9 @@ import { characters } from "./data/character/characters";
 import { CalculationBase } from "./class/CalculationBase";
 import { changeCharacterStatus } from "./class/Status";
 
+//function
+import { floorStatus } from "./functions/Util";
+
 export const App = () => {
   const [calculationBase, setCalculationBase] = useState(new CalculationBase());
   const onChangeCharacter = (event) => {
@@ -68,7 +71,11 @@ export const App = () => {
     propertys.forEach((property) => {
       targetObject = targetObject[property];
     });
-    targetObject[targetProperty] = Number(event.target.value);
+
+    //ステータスごとの単位にinputの小数点を丸める。画面もこの値で再描画する。
+    targetObject[targetProperty] = !isNaN(event.target.value)
+      ? floorStatus(Number(event.target.value), targetProperty)
+      : 0;
 
     setCalculationBase({
       ...calculationBase,
