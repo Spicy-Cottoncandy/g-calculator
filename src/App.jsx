@@ -11,7 +11,7 @@ import { characters } from "./data/character/characters";
 
 //class
 import { CalculationBase } from "./class/CalculationBase";
-import { changeCharacterStatus } from "./class/Status";
+import { changeCharacterStatus, statusPrecisions } from "./class/Status";
 
 //function
 import { floorStatus } from "./functions/Util";
@@ -72,9 +72,12 @@ export const App = () => {
       targetObject = targetObject[property];
     });
 
-    //ステータスごとの単位にinputの小数点を丸める。画面もこの値で再描画する。
+    //ステータスごとの単位にinputの小数点を切り捨て。画面もこの値で再描画する。
     targetObject[targetProperty] = !isNaN(event.target.value)
-      ? floorStatus(Number(event.target.value), targetProperty)
+      ? floorStatus(
+          Number(event.target.value),
+          statusPrecisions[targetProperty]
+        )
       : 0;
 
     setCalculationBase({

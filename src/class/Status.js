@@ -38,6 +38,30 @@ export const changeCharacterStatus = (status, id, levelRank) => {
   status.def = characters[id].DEF[levelRank];
 };
 
+export const statusPrecisions = {
+  hp: 0,
+  hpPercent: 1,
+  atk: 0,
+  atkPercent: 1,
+  def: 0,
+  defPercent: 1,
+  elementalMastery: 0,
+  criticalRate: 1,
+  criticalDamage: 1,
+  healingBonus: 1, //与える治癒効果
+  incomingHealingBonus: 1, //受ける治癒効果
+  energyRecharge: 1,
+  shieldStrength: 1,
+  Anemo: 1, //風
+  Cryo: 1, //氷
+  Dendro: 1, //草
+  Electro: 1, //雷
+  Geo: 1, //岩
+  Hydro: 1, //水
+  Pyro: 1, //炎
+  Physical: 1 //物理
+};
+
 /*
 this.status = {
   hp: 0,
