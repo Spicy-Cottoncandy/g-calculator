@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import { BaseStatus } from "./components/Status";
 import { Character, Level, Constellation } from "./components/Character";
 import { TalentsLevel } from "./components/TalentsLevel";
-//import { Level } from "./components/Level";
+import { Weapon } from "./components/Weapon";
 
 //data
 import { characters } from "./data/character/characters";
@@ -153,17 +153,17 @@ export const App = () => {
 
   return (
     <>
-      {console.log(calculationBase.talentsLevel)}
       <div className="CharacterArea">
         <Character onChange={onChangeCharacter} />
         <Level onChange={onChangeLevel} />
         <Constellation onChange={onChangeConstellation} />
+        <Weapon />
         <TalentsLevel
           talentsLevel={calculationBase.talentsLevel}
           onChange={onChangeTalensLevel}
         />
       </div>
-      <div className="BaseStatusArea">
+      <div className="StatusArea">
         {typeof characters[calculationBase.character.id] !== "undefined" ? (
           <>
             <BaseStatus

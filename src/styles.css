@@ -24,13 +24,20 @@ body {
   border-radius: 8px;
 }
 
-.BaseStatusArea {
+.StatusArea {
   font-size: 0.7rem;
   background-color: #bfffff;
   width: 370px;
   padding: 8px;
   margin: 0px;
   border-radius: 8px;
+}
+
+.TalentLevelArea {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .td-title {

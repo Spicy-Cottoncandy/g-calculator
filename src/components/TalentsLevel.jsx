@@ -32,24 +32,35 @@ export const TalentsLevel = (props) => {
 
   return (
     <>
-      <SelectMenuTalentLevel
-        items={normalAttacks}
-        itemName={"normalAttack"}
-        defaultValue={talentsLevel.normalAttack}
-        onChange={onChange}
-      />
-      <SelectMenuTalentLevel
-        items={elementalAttacks}
-        itemName={"elementalAttack"}
-        defaultValue={talentsLevel.elementalAttack}
-        onChange={onChange}
-      />
-      <SelectMenuTalentLevel
-        items={elementalAttacks}
-        itemName={"elementalBurst"}
-        defaultValue={talentsLevel.elementalBurst}
-        onChange={onChange}
-      />
+      <div className="TalentLevelArea">
+        <div className="">
+          <p>通常攻撃</p>
+          <SelectMenuTalentLevel
+            items={normalAttacks}
+            itemName={"normalAttack"}
+            defaultValue={talentsLevel.normalAttack}
+            onChange={onChange}
+          />
+        </div>
+        <div className="">
+          <p>元素スキル</p>
+          <SelectMenuTalentLevel
+            items={elementalAttacks}
+            itemName={"elementalAttack"}
+            defaultValue={talentsLevel.elementalAttack}
+            onChange={onChange}
+          />
+        </div>
+        <div className="">
+          <p>元素爆発</p>
+          <SelectMenuTalentLevel
+            items={elementalAttacks}
+            itemName={"elementalBurst"}
+            defaultValue={talentsLevel.elementalBurst}
+            onChange={onChange}
+          />
+        </div>
+      </div>
     </>
   );
 };
