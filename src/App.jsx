@@ -3,8 +3,9 @@ import React, { useEffect, useState } from "react";
 
 //components
 import { BaseStatus } from "./components/Status";
-import { Character } from "./components/Character";
-import { Level } from "./components/Level";
+import { Character, Level, Constellation } from "./components/Character";
+import { TalentsLevel } from "./components/TalentsLevel";
+//import { Level } from "./components/Level";
 
 //data
 import { characters } from "./data/character/characters";
@@ -21,6 +22,10 @@ export const App = () => {
   const onChangeCharacter = (event) => {
     const newid = Number(event.target.value);
     const newBaseStatus = { ...calculationBase.baseStatus };
+
+    //バリデーションを記述
+
+    //
 
     changeCharacterStatus(
       newBaseStatus,
@@ -43,6 +48,10 @@ export const App = () => {
     const newLevelRank = event.target.value;
     const newBaseStatus = { ...calculationBase.baseStatus };
 
+    //バリデーションを記述
+
+    //
+
     changeCharacterStatus(
       newBaseStatus,
       calculationBase.character.id,
@@ -57,6 +66,24 @@ export const App = () => {
         level: newLevel
       },
       baseStatus: newBaseStatus
+    });
+  };
+
+  const onChangeConstellation = (event) => {
+    let newConstellation = event.target.value;
+
+    //バリデーションを記述
+    if (newConstellation < 0 || newConstellation > 6) {
+      return;
+    }
+    //
+
+    setCalculationBase({
+      ...calculationBase,
+      character: {
+        ...calculationBase.character,
+        constellation: newConstellation
+      }
     });
   };
 
@@ -88,11 +115,53 @@ export const App = () => {
     });
   };
 
+  const onChangeTalensLevel = (event) => {
+    const newTalentsLevel = { ...calculationBase.talentsLevel };
+    const newLevel = Number(event.target.value);
+    const targetProperty = event.target.dataset.item;
+
+    //バリデーションを記述
+    if (!Object.keys(calculationBase.talentsLevel).includes(targetProperty)) {
+      return;
+    }
+
+    if (targetProperty === "normalAttack" && (newLevel < 1 || newLevel > 11)) {
+      return;
+    }
+    if (
+      targetProperty === "elementalAttack" &&
+      (newLevel < 1 || newLevel > 13)
+    ) {
+      return;
+    }
+    if (
+      targetProperty === "elementalBurst" &&
+      (newLevel < 1 || newLevel > 13)
+    ) {
+      return;
+    }
+    //
+
+    newTalentsLevel[targetProperty] = newLevel;
+    setCalculationBase({
+      ...calculationBase,
+      talentsLevel: {
+        ...newTalentsLevel
+      }
+    });
+  };
+
   return (
     <>
+      {console.log(calculationBase.talentsLevel)}
       <div className="CharacterArea">
         <Character onChange={onChangeCharacter} />
         <Level onChange={onChangeLevel} />
+        <Constellation onChange={onChangeConstellation} />
+        <TalentsLevel
+          talentsLevel={calculationBase.talentsLevel}
+          onChange={onChangeTalensLevel}
+        />
       </div>
       <div className="BaseStatusArea">
         {typeof characters[calculationBase.character.id] !== "undefined" ? (

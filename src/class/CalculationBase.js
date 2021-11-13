@@ -1,4 +1,4 @@
-import { characters } from "../data/character/characters";
+//import { characters } from "../data/character/characters";
 import { Status } from "./Status";
 
 export class CalculationBase {

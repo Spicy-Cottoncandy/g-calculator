@@ -1,10 +1,15 @@
 import React from "react";
 
 export const SelectMenu = (props) => {
-  const { items, isRequired, onChange } = props;
+  const { items, defaultValue, isRequired, onChange } = props;
   return (
     <div className="SelectMenu">
-      <select name="selectmenu" required onChange={onChange}>
+      <select
+        name="selectmenu"
+        defaultValue={defaultValue}
+        required
+        onChange={onChange}
+      >
         {!isRequired && <option value="">---</option>}
         {items.map((item, index) => {
           return (
@@ -19,11 +24,11 @@ export const SelectMenu = (props) => {
 };
 
 export const InputNumber = (props) => {
-  const { value, item, onChange } = props;
+  const { value, itemName, onChange } = props;
   return (
     <div className="InputNumber">
       <input
-        data-item={item}
+        data-item={itemName}
         type="number"
         className="Input"
         placeholder="0"
