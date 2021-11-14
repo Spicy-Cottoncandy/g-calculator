@@ -21,14 +21,14 @@ export const App = () => {
   const [calculationBase, setCalculationBase] = useState(new CalculationBase());
   const onChangeCharacter = (event) => {
     const newid = Number(event.target.value);
-    const newBaseStatus = { ...calculationBase.baseStatus };
+    const newCharacterStatus = { ...calculationBase.characterStatus };
 
     //バリデーションを記述
 
     //
 
     changeCharacterStatus(
-      newBaseStatus,
+      newCharacterStatus,
       newid,
       calculationBase.character.levelRank
     );
@@ -39,21 +39,21 @@ export const App = () => {
         ...calculationBase.character,
         id: newid
       },
-      baseStatus: newBaseStatus
+      characterStatus: newCharacterStatus
     });
   };
 
   const onChangeLevel = (event) => {
     const newLevel = Number(event.target.value.substr(-6, 2));
     const newLevelRank = event.target.value;
-    const newBaseStatus = { ...calculationBase.baseStatus };
+    const newCharacterStatus = { ...calculationBase.characterStatus };
 
     //バリデーションを記述
 
     //
 
     changeCharacterStatus(
-      newBaseStatus,
+      newCharacterStatus,
       calculationBase.character.id,
       newLevelRank
     );
@@ -65,7 +65,7 @@ export const App = () => {
         levelRank: newLevelRank,
         level: newLevel
       },
-      baseStatus: newBaseStatus
+      characterStatus: newCharacterStatus
     });
   };
 
@@ -153,6 +153,7 @@ export const App = () => {
 
   return (
     <>
+      {console.log(calculationBase.characterStatus)}
       <div className="CharacterArea">
         <Character onChange={onChangeCharacter} />
         <Level onChange={onChangeLevel} />

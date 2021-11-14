@@ -48,12 +48,14 @@ export class CalculationBase {
         mainStat: ""
       }
     };
-    this.baseStatus = new Status();
+    this.characterStatus = new Status();
+    this.weaponStatus = new Status();
     this.extendStatus = new Status();
   }
-
+}
+/**
   initBaseStatus() {
-    this.baseStatus = {
+    this.characterStatus = {
       hp: 0,
       hpPercent: 0.0,
       atk: 0,
@@ -79,7 +81,7 @@ export class CalculationBase {
       }
     };
   }
-}
+ */
 
 /**
 export const CalculationBase = {

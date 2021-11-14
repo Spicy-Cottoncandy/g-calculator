@@ -13,7 +13,7 @@ export const BaseStatus = (props) => {
             <BasicStatusTd
               title="Base HP"
               itemName="hpPercent"
-              baseValue={calculationBase.baseStatus.hp}
+              baseValue={calculationBase.characterStatus.hp}
               bonusPercent={calculationBase.extendStatus.hpPercent}
               onChange={onchangeExtendStatus}
             />
@@ -22,7 +22,7 @@ export const BaseStatus = (props) => {
             <BasicStatusTd
               title="Base ATK"
               itemName="atkPercent"
-              baseValue={calculationBase.baseStatus.atk}
+              baseValue={calculationBase.characterStatus.atk}
               bonusPercent={calculationBase.extendStatus.atkPercent}
               onChange={onchangeExtendStatus}
             />
@@ -31,7 +31,7 @@ export const BaseStatus = (props) => {
             <BasicStatusTd
               title="Base DEF"
               itemName="defPercent"
-              baseValue={calculationBase.baseStatus.def}
+              baseValue={calculationBase.characterStatus.def}
               bonusPercent={calculationBase.extendStatus.defPercent}
               onChange={onchangeExtendStatus}
             />
@@ -40,7 +40,7 @@ export const BaseStatus = (props) => {
             <AdvancedStatusTd
               title="元素熟知"
               itemName="elementalMastery"
-              baseValue={calculationBase.baseStatus.elementalMastery}
+              baseValue={calculationBase.characterStatus.elementalMastery}
               bonusValue={calculationBase.extendStatus.elementalMastery}
               onChange={onchangeExtendStatus}
             />
@@ -50,7 +50,7 @@ export const BaseStatus = (props) => {
               title="会心率"
               itemName="criticalRate"
               unit="%"
-              baseValue={calculationBase.baseStatus.criticalRate}
+              baseValue={calculationBase.characterStatus.criticalRate}
               bonusValue={calculationBase.extendStatus.criticalRate}
               onChange={onchangeExtendStatus}
             />
@@ -60,7 +60,7 @@ export const BaseStatus = (props) => {
               title="会心ダメージ"
               itemName="criticalDamage"
               unit="%"
-              baseValue={calculationBase.baseStatus.criticalDamage}
+              baseValue={calculationBase.characterStatus.criticalDamage}
               bonusValue={calculationBase.extendStatus.criticalDamage}
               onChange={onchangeExtendStatus}
             />
@@ -70,7 +70,7 @@ export const BaseStatus = (props) => {
               title="与える治癒効果"
               itemName="healingBonus"
               unit="%"
-              baseValue={calculationBase.baseStatus.healingBonus}
+              baseValue={calculationBase.characterStatus.healingBonus}
               bonusValue={calculationBase.extendStatus.healingBonus}
               onChange={onchangeExtendStatus}
             />
@@ -80,7 +80,7 @@ export const BaseStatus = (props) => {
               title="受ける治癒効果"
               itemName="incomingHealingBonus"
               unit="%"
-              baseValue={calculationBase.baseStatus.incomingHealingBonus}
+              baseValue={calculationBase.characterStatus.incomingHealingBonus}
               bonusValue={calculationBase.extendStatus.incomingHealingBonus}
               onChange={onchangeExtendStatus}
             />
@@ -90,7 +90,7 @@ export const BaseStatus = (props) => {
               title="元素チャージ効率"
               itemName="energyRecharge"
               unit="%"
-              baseValue={calculationBase.baseStatus.energyRecharge}
+              baseValue={calculationBase.characterStatus.energyRecharge}
               bonusValue={calculationBase.extendStatus.energyRecharge}
               onChange={onchangeExtendStatus}
             />
@@ -101,7 +101,7 @@ export const BaseStatus = (props) => {
               title="シールド強化"
               itemName="shieldStrength"
               unit="%"
-              baseValue={calculationBase.baseStatus.shieldStrength}
+              baseValue={calculationBase.characterStatus.shieldStrength}
               bonusValue={calculationBase.extendStatus.shieldStrength}
               onChange={onchangeExtendStatus}
             />
@@ -112,7 +112,7 @@ export const BaseStatus = (props) => {
               title="風元素ダメージ"
               itemName="damageBonus.Anemo"
               unit="%"
-              baseValue={calculationBase.baseStatus.damageBonus.Anemo}
+              baseValue={calculationBase.characterStatus.damageBonus.Anemo}
               bonusValue={calculationBase.extendStatus.damageBonus.Anemo}
               onChange={onchangeExtendStatus}
             />
@@ -122,7 +122,7 @@ export const BaseStatus = (props) => {
               title="氷元素ダメージ"
               itemName="damageBonus.Cryo"
               unit="%"
-              baseValue={calculationBase.baseStatus.damageBonus.Cryo}
+              baseValue={calculationBase.characterStatus.damageBonus.Cryo}
               bonusValue={calculationBase.extendStatus.damageBonus.Cryo}
               onChange={onchangeExtendStatus}
             />
@@ -132,7 +132,7 @@ export const BaseStatus = (props) => {
               title="草元素ダメージ"
               itemName="damageBonus.Dendro"
               unit="%"
-              baseValue={calculationBase.baseStatus.damageBonus.Dendro}
+              baseValue={calculationBase.characterStatus.damageBonus.Dendro}
               bonusValue={calculationBase.extendStatus.damageBonus.Dendro}
               onChange={onchangeExtendStatus}
             />
@@ -142,7 +142,7 @@ export const BaseStatus = (props) => {
               title="雷元素ダメージ"
               itemName="damageBonus.Electro"
               unit="%"
-              baseValue={calculationBase.baseStatus.damageBonus.Electro}
+              baseValue={calculationBase.characterStatus.damageBonus.Electro}
               bonusValue={calculationBase.extendStatus.damageBonus.Electro}
               onChange={onchangeExtendStatus}
             />
@@ -152,7 +152,7 @@ export const BaseStatus = (props) => {
               title="岩元素ダメージ"
               itemName="damageBonus.Geo"
               unit="%"
-              baseValue={calculationBase.baseStatus.damageBonus.Geo}
+              baseValue={calculationBase.characterStatus.damageBonus.Geo}
               bonusValue={calculationBase.extendStatus.damageBonus.Geo}
               onChange={onchangeExtendStatus}
             />
@@ -162,7 +162,7 @@ export const BaseStatus = (props) => {
               title="水元素ダメージ"
               itemName="damageBonus.Hydro"
               unit="%"
-              baseValue={calculationBase.baseStatus.damageBonus.Hydro}
+              baseValue={calculationBase.characterStatus.damageBonus.Hydro}
               bonusValue={calculationBase.extendStatus.damageBonus.Hydro}
               onChange={onchangeExtendStatus}
             />
@@ -172,7 +172,7 @@ export const BaseStatus = (props) => {
               title="炎元素ダメージ"
               itemName="damageBonus.Pyro"
               unit="%"
-              baseValue={calculationBase.baseStatus.damageBonus.Pyro}
+              baseValue={calculationBase.characterStatus.damageBonus.Pyro}
               bonusValue={calculationBase.extendStatus.damageBonus.Pyro}
               onChange={onchangeExtendStatus}
             />
@@ -182,7 +182,7 @@ export const BaseStatus = (props) => {
               title="物理ダメージ"
               itemName="damageBonus.Physical"
               unit="%"
-              baseValue={calculationBase.baseStatus.damageBonus.Physical}
+              baseValue={calculationBase.characterStatus.damageBonus.Physical}
               bonusValue={calculationBase.extendStatus.damageBonus.Physical}
               onChange={onchangeExtendStatus}
             />
