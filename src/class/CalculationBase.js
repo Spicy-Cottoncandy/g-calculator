@@ -17,6 +17,7 @@ export class CalculationBase {
     this.weapon = {
       id: 0,
       level: 0,
+      levelRank: "001/020",
       rank: 0
     };
     this.artifacts = {

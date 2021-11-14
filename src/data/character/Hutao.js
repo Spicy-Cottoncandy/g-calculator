@@ -3,8 +3,9 @@
  */
 export const Hutao = {
   name: "胡桃",
+  star: 5,
   element: "Pyro",
-  weapon: "",
+  weapon: "Polearm",
   HP: {
     "001/020": 1211,
     "020/020": 3141,

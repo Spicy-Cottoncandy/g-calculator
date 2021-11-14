@@ -3,8 +3,9 @@
  */
 export const Eula = {
   name: "エウルア",
+  star: 5,
   element: "Cyro",
-  weapon: "",
+  weapon: "Claymore",
   HP: {
     "001/020": 1030,
     "020/020": 2671,
