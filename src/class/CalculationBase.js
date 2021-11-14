@@ -6,7 +6,7 @@ export class CalculationBase {
     this.character = {
       id: 0,
       level: 1,
-      levelRank: "001/020",
+      levelRank: 0,
       constellation: 0
     };
     this.talentsLevel = {
@@ -53,6 +53,24 @@ export class CalculationBase {
     this.extendStatus = new Status();
   }
 }
+
+export const levelRanks = {
+  0: { level: 1, rank: "1/20" },
+  1: { level: 20, rank: "20/20" },
+  2: { level: 20, rank: "20/40" },
+  3: { level: 40, rank: "40/40" },
+  4: { level: 40, rank: "40/50" },
+  5: { level: 50, rank: "50/50" },
+  6: { level: 50, rank: "50/60" },
+  7: { level: 60, rank: "60/70" },
+  8: { level: 60, rank: "60/70" },
+  9: { level: 70, rank: "70/80" },
+  10: { level: 70, rank: "70/80" },
+  11: { level: 80, rank: "80/80" },
+  12: { level: 80, rank: "80/90" },
+  13: { level: 90, rank: "90/90" }
+};
+
 /**
   initBaseStatus() {
     this.characterStatus = {

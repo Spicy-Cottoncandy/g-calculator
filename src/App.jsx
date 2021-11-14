@@ -11,7 +11,7 @@ import { Weapon } from "./components/Weapon";
 import { characters } from "./data/character/characters";
 
 //class
-import { CalculationBase } from "./class/CalculationBase";
+import { CalculationBase, levelRanks } from "./class/CalculationBase";
 import { changeCharacterStatus, statusPrecisions } from "./class/Status";
 
 //function
@@ -19,6 +19,11 @@ import { floorStatus } from "./functions/Util";
 
 export const App = () => {
   const [calculationBase, setCalculationBase] = useState(new CalculationBase());
+
+  /**
+   * onChangeCharacter
+   * キャラクター
+   */
   const onChangeCharacter = (event) => {
     const newid = Number(event.target.value);
     const newCharacterStatus = { ...calculationBase.characterStatus };
@@ -27,11 +32,7 @@ export const App = () => {
 
     //
 
-    changeCharacterStatus(
-      newCharacterStatus,
-      newid,
-      calculationBase.character.levelRank
-    );
+    changeCharacterStatus(newCharacterStatus, newid, calculationBase.character.levelRank);
 
     setCalculationBase({
       ...calculationBase,
@@ -43,20 +44,22 @@ export const App = () => {
     });
   };
 
-  const onChangeLevel = (event) => {
-    const newLevel = Number(event.target.value.substr(-6, 2));
-    const newLevelRank = event.target.value;
-    const newCharacterStatus = { ...calculationBase.characterStatus };
-
+  /**
+   * onChangeCharacterLevel
+   * キャラクターレベル
+   */
+  const onChangeCharacterLevel = (event) => {
+    const newLevelRank = Number(event.target.value);
     //バリデーションを記述
-
+    if (newLevelRank < 0 || newLevelRank > 13) {
+      return;
+    }
     //
 
-    changeCharacterStatus(
-      newCharacterStatus,
-      calculationBase.character.id,
-      newLevelRank
-    );
+    const newLevel = levelRanks[newLevelRank].level;
+    const newCharacterStatus = { ...calculationBase.characterStatus };
+
+    changeCharacterStatus(newCharacterStatus, calculationBase.character.id, newLevelRank);
 
     setCalculationBase({
       ...calculationBase,
@@ -69,6 +72,10 @@ export const App = () => {
     });
   };
 
+  /**
+   * onChangeConstellation
+   * 命の星座
+   */
   const onChangeConstellation = (event) => {
     let newConstellation = event.target.value;
 
@@ -87,6 +94,44 @@ export const App = () => {
     });
   };
 
+  /**
+   * onChangeTalensLevel
+   * 天賦レベル
+   */
+  const onChangeTalensLevel = (event) => {
+    const newTalentsLevel = { ...calculationBase.talentsLevel };
+    const newLevel = Number(event.target.value);
+    const targetProperty = event.target.dataset.item;
+
+    //バリデーションを記述
+    if (!Object.keys(calculationBase.talentsLevel).includes(targetProperty)) {
+      return;
+    }
+
+    if (targetProperty === "normalAttack" && (newLevel < 1 || newLevel > 11)) {
+      return;
+    }
+    if (targetProperty === "elementalAttack" && (newLevel < 1 || newLevel > 13)) {
+      return;
+    }
+    if (targetProperty === "elementalBurst" && (newLevel < 1 || newLevel > 13)) {
+      return;
+    }
+    //
+
+    newTalentsLevel[targetProperty] = newLevel;
+    setCalculationBase({
+      ...calculationBase,
+      talentsLevel: {
+        ...newTalentsLevel
+      }
+    });
+  };
+
+  /**
+   * onChangeExtendStatus
+   * 手動設定ステータス
+   */
   const onChangeExtendStatus = (event) => {
     const newExtendStatus = { ...calculationBase.extendStatus };
     let targetObject = newExtendStatus;
@@ -101,10 +146,7 @@ export const App = () => {
 
     //ステータスごとの単位にinputの小数点を切り捨て。画面もこの値で再描画する。
     targetObject[targetProperty] = !isNaN(event.target.value)
-      ? floorStatus(
-          Number(event.target.value),
-          statusPrecisions[targetProperty]
-        )
+      ? floorStatus(Number(event.target.value), statusPrecisions[targetProperty])
       : 0;
 
     setCalculationBase({
@@ -115,54 +157,15 @@ export const App = () => {
     });
   };
 
-  const onChangeTalensLevel = (event) => {
-    const newTalentsLevel = { ...calculationBase.talentsLevel };
-    const newLevel = Number(event.target.value);
-    const targetProperty = event.target.dataset.item;
-
-    //バリデーションを記述
-    if (!Object.keys(calculationBase.talentsLevel).includes(targetProperty)) {
-      return;
-    }
-
-    if (targetProperty === "normalAttack" && (newLevel < 1 || newLevel > 11)) {
-      return;
-    }
-    if (
-      targetProperty === "elementalAttack" &&
-      (newLevel < 1 || newLevel > 13)
-    ) {
-      return;
-    }
-    if (
-      targetProperty === "elementalBurst" &&
-      (newLevel < 1 || newLevel > 13)
-    ) {
-      return;
-    }
-    //
-
-    newTalentsLevel[targetProperty] = newLevel;
-    setCalculationBase({
-      ...calculationBase,
-      talentsLevel: {
-        ...newTalentsLevel
-      }
-    });
-  };
-
   return (
     <>
       {console.log(calculationBase.characterStatus)}
       <div className="CharacterArea">
         <Character onChange={onChangeCharacter} />
-        <Level onChange={onChangeLevel} />
+        <Level onChange={onChangeCharacterLevel} />
         <Constellation onChange={onChangeConstellation} />
         <Weapon />
-        <TalentsLevel
-          talentsLevel={calculationBase.talentsLevel}
-          onChange={onChangeTalensLevel}
-        />
+        <TalentsLevel talentsLevel={calculationBase.talentsLevel} onChange={onChangeTalensLevel} />
       </div>
       <div className="StatusArea">
         {typeof characters[calculationBase.character.id] !== "undefined" ? (
