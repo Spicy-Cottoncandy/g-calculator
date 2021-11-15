@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import weapons from "../data/weapon/weapons";
 
 const levels = [
   { text: "1/20", value: 0 },
@@ -18,6 +19,11 @@ const levels = [
 ];
 
 export const Weapon = (props) => {
-  const { onChange } = props;
+  const { weaponType, onChange } = props;
+
+  const [weaponItems, setWeaponItems] = useState([]);
+
+  useEffect(() => {}, []);
+
   return <></>;
 };

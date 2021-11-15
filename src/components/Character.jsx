@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { SelectMenu } from "./Common";
 import { characters } from "../data/character/characters";
 
@@ -31,10 +31,15 @@ const constellations = [
 
 export const Character = (props) => {
   const { onChange } = props;
-  const items = [];
-  Object.keys(characters).forEach((key) => {
-    items.push({ value: key, text: characters[key].name });
-  });
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    const array = [];
+    Object.keys(characters).forEach((key) => {
+      array.push({ value: key, text: characters[key].name });
+    });
+    setItems(array);
+  }, []);
 
   return (
     <>

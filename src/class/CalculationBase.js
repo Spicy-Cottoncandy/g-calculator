@@ -18,7 +18,7 @@ export class CalculationBase {
       id: 0,
       level: 0,
       levelRank: "001/020",
-      rank: 0
+      refiningRank: 0
     };
     this.artifacts = {
       setId: [0, 0],
