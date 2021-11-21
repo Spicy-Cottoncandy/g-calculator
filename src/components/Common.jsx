@@ -1,15 +1,10 @@
 import React from "react";
 
 export const SelectMenu = (props) => {
-  const { items, defaultValue, isRequired, onChange } = props;
+  const { items, value, isRequired, onChange } = props;
   return (
     <div className="SelectMenu">
-      <select
-        name="selectmenu"
-        defaultValue={defaultValue}
-        required
-        onChange={onChange}
-      >
+      <select name="selectmenu" value={value} required onChange={onChange}>
         {!isRequired && <option value="">---</option>}
         {items.map((item, index) => {
           return (

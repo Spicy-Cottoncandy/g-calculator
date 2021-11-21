@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import weapons from "../data/weapon/weapons";
+import { SelectMenu } from "./Common";
+import { weapons } from "../data/weapon/weapons";
 
 const levels = [
   { text: "1/20", value: 0 },
@@ -18,12 +19,55 @@ const levels = [
   { text: "90/90", value: 13 }
 ];
 
+const refiningRanks = [
+  { value: 0, text: "Rank0" },
+  { value: 1, text: "Rank1" },
+  { value: 2, text: "Rank2" },
+  { value: 3, text: "Rank3" },
+  { value: 4, text: "Rank4" },
+  { value: 5, text: "Rank5" }
+];
+
 export const Weapon = (props) => {
-  const { weaponType, onChange } = props;
+  const { weaponId, weaponType, onChange } = props;
 
   const [weaponItems, setWeaponItems] = useState([]);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    const array = [];
+    if (weaponType === null) {
+      setWeaponItems([]);
+      return;
+    }
 
-  return <></>;
+    Object.keys(weapons[weaponType]).forEach((key) => {
+      array.push({ value: key, text: weapons[weaponType][key].name });
+    });
+    setWeaponItems(array);
+  }, [weaponType]);
+
+  return (
+    <>
+      <SelectMenu items={weaponItems} isRequired={false} value={weaponId} onChange={onChange} />
+    </>
+  );
+};
+
+export const WeaponLevel = (props) => {
+  const { onChange } = props;
+
+  return (
+    <>
+      <SelectMenu items={levels} isRequired={true} onChange={onChange} />
+    </>
+  );
+};
+
+export const WeaponRank = (props) => {
+  const { onChange } = props;
+  return (
+    <>
+      <SelectMenu items={refiningRanks} isRequired={true} onChange={onChange} />
+    </>
+  );
 };

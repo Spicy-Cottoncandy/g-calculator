@@ -48,7 +48,7 @@ export const Character = (props) => {
   );
 };
 
-export const Level = (props) => {
+export const CharacterLevel = (props) => {
   const { onChange } = props;
 
   return (

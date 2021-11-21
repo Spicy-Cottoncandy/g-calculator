@@ -1,17 +1,18 @@
 import "./styles.css";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 //components
 import { BaseStatus } from "./components/Status";
-import { Character, Level, Constellation } from "./components/Character";
+import { Character, CharacterLevel, Constellation } from "./components/Character";
 import { TalentsLevel } from "./components/TalentsLevel";
-import { Weapon } from "./components/Weapon";
+import { Weapon, WeaponLevel, WeaponRank } from "./components/Weapon";
 
 //data
 import { characters } from "./data/character/characters";
+import { weapons } from "./data/weapon/weapons";
 
 //class
-import { CalculationBase, levelRanks } from "./class/CalculationBase";
+import { CalculationBase, characterLevelRanks, weaponLevelRanks } from "./class/CalculationBase";
 import { changeCharacterStatus, statusPrecisions } from "./class/Status";
 
 //function
@@ -34,11 +35,26 @@ export const App = () => {
 
     changeCharacterStatus(newCharacterStatus, newid, calculationBase.character.levelRank);
 
+    //キャラクター変更によりの武器タイプが変化した場合、idを1にする。
+    //同じ武器タイプであれば、変更前のidを維持する。
+    let newWeaponId = calculationBase.weapon.id;
+    if (
+      newid === 0 ||
+      calculationBase.character.id === 0 ||
+      characters[calculationBase.character.id].weaponType !== characters[newid].weaponType
+    ) {
+      newWeaponId = 1;
+    }
+
     setCalculationBase({
       ...calculationBase,
       character: {
         ...calculationBase.character,
         id: newid
+      },
+      weapon: {
+        ...calculationBase.weapon,
+        id: newWeaponId
       },
       characterStatus: newCharacterStatus
     });
@@ -56,7 +72,7 @@ export const App = () => {
     }
     //
 
-    const newLevel = levelRanks[newLevelRank].level;
+    const newLevel = characterLevelRanks[newLevelRank].level;
     const newCharacterStatus = { ...calculationBase.characterStatus };
 
     changeCharacterStatus(newCharacterStatus, calculationBase.character.id, newLevelRank);
@@ -77,7 +93,7 @@ export const App = () => {
    * 命の星座
    */
   const onChangeConstellation = (event) => {
-    let newConstellation = event.target.value;
+    let newConstellation = Number(event.target.value);
 
     //バリデーションを記述
     if (newConstellation < 0 || newConstellation > 6) {
@@ -90,6 +106,73 @@ export const App = () => {
       character: {
         ...calculationBase.character,
         constellation: newConstellation
+      }
+    });
+  };
+
+  /**
+   * onChangeWeapon
+   * 武器
+   */
+  const onChangeWeapon = (event) => {
+    const newWeaponId = Number(event.target.value);
+    //バリデーションを記述
+    if (isNaN(newWeaponId)) {
+      return;
+    }
+    //
+
+    setCalculationBase({
+      ...calculationBase,
+      weapon: {
+        ...calculationBase.weapon,
+        id: newWeaponId
+      }
+    });
+  };
+
+  /**
+   * onChangeWeponLevel
+   * 武器レベル
+   */
+  const onChangeWeaponLevel = (event) => {
+    const newLevelRank = Number(event.target.value);
+
+    //バリデーションを記述
+    if (newLevelRank < 0 || newLevelRank > 13) {
+      return;
+    }
+    //
+
+    const newLevel = weaponLevelRanks[newLevelRank].level;
+    setCalculationBase({
+      ...calculationBase,
+      weapon: {
+        ...calculationBase.weapon,
+        level: newLevel,
+        levelRank: newLevelRank
+      }
+    });
+  };
+
+  /**
+   * onChangeWeaponRank
+   * 武器精錬ランク
+   */
+  const onCHangeWeaponRank = (event) => {
+    const newWeaponRank = Number(event.target.value);
+
+    //バリデーションを記述
+    if (newWeaponRank < 0 || newWeaponRank > 5) {
+      return;
+    }
+    //
+
+    setCalculationBase({
+      ...calculationBase,
+      weapon: {
+        ...calculationBase.weapon,
+        refiningRank: newWeaponRank
       }
     });
   };
@@ -159,15 +242,64 @@ export const App = () => {
 
   return (
     <>
-      {console.log(calculationBase.characterStatus)}
-      <div className="CharacterArea">
+      <div className="CharacterHeader">
         <Character onChange={onChangeCharacter} />
-        <Level onChange={onChangeCharacterLevel} />
-        <Constellation onChange={onChangeConstellation} />
-        <Weapon />
-        <TalentsLevel talentsLevel={calculationBase.talentsLevel} onChange={onChangeTalensLevel} />
       </div>
-      <div className="StatusArea">
+      <div className="CharacterSettingContainer">
+        <div className="CharacterArea">
+          <p>
+            {typeof characters[calculationBase.character.id] !== "undefined"
+              ? characters[calculationBase.character.id].name
+              : ""}
+          </p>
+          <div className="CharacterLevel">
+            <p>Lv.</p>
+            <CharacterLevel onChange={onChangeCharacterLevel} />
+          </div>
+          <div className="Constellation">
+            <p>命の星座</p>
+            <Constellation onChange={onChangeConstellation} />
+          </div>
+        </div>
+        <div className="WeaponArea">
+          <div className="WeaponImage"></div>
+          <div className="WeaponSetting">
+            <div className="WeaponText">
+              <Weapon
+                weaponId={calculationBase.weapon.id}
+                weaponType={
+                  typeof characters[calculationBase.character.id] !== "undefined"
+                    ? characters[calculationBase.character.id].weaponType
+                    : null
+                }
+                onChange={onChangeWeapon}
+              />
+              {/*
+              <p>
+                {calculationBase.character.id !== 0 && calculationBase.weapon.id !== 0
+                  ? weapons[characters[calculationBase.character.id].weaponType][calculationBase.weapon.id].name
+                  : ""}
+              </p>
+                */}
+            </div>
+            <div className="WeaponItems">
+              <div className="WeaponLevel">
+                <p>Lv.</p>
+                <WeaponLevel onChange={onChangeWeaponLevel} />
+              </div>
+              <div className="WeaponRank">
+                <p>精錬ランク</p>
+                <WeaponRank onChange={onCHangeWeaponRank} />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="TalentsLevelArea">
+          <TalentsLevel talentsLevel={calculationBase.talentsLevel} onChange={onChangeTalensLevel} />
+        </div>
+      </div>
+
+      <div className="StatusContainer">
         {typeof characters[calculationBase.character.id] !== "undefined" ? (
           <>
             <BaseStatus

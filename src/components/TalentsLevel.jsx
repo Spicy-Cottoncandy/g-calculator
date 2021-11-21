@@ -69,13 +69,7 @@ export const SelectMenuTalentLevel = (props) => {
   const { items, itemName, defaultValue, onChange } = props;
   return (
     <div className="SelectMenu">
-      <select
-        name="selectmenu"
-        data-item={itemName}
-        required
-        onChange={onChange}
-        defaultValue={defaultValue}
-      >
+      <select name="selectmenu" data-item={itemName} required onChange={onChange} defaultValue={defaultValue}>
         {items.map((item, index) => {
           return (
             <option key={item.value} value={item.value}>
