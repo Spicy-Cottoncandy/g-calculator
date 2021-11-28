@@ -13,7 +13,7 @@ import { weapons } from "./data/weapon/weapons";
 
 //class
 import { CalculationBase, characterLevelRanks, weaponLevelRanks } from "./class/CalculationBase";
-import { changeCharacterStatus, statusPrecisions } from "./class/Status";
+import { changeCharacterStatus, changeWeaponStatus, Status, statusPrecisions } from "./class/Status";
 
 //function
 import { floorStatus } from "./functions/Util";
@@ -27,7 +27,7 @@ export const App = () => {
    */
   const onChangeCharacter = (event) => {
     const newid = Number(event.target.value);
-    const newCharacterStatus = { ...calculationBase.characterStatus };
+    const newCharacterStatus = new Status();
 
     //バリデーションを記述
 
@@ -46,6 +46,13 @@ export const App = () => {
       newWeaponId = 1;
     }
 
+    //武器ステータスを更新する。
+    const newWeaponStatus = new Status();
+    const weaponType = characters[newid]?.weaponType || null; //オプショナルチェーンでnull設定する。
+    const levelRank = calculationBase.weapon.levelRank;
+    const refiningRank = calculationBase.weapon.refiningRank;
+    changeWeaponStatus(newWeaponStatus, newWeaponId, weaponType, levelRank, refiningRank);
+
     setCalculationBase({
       ...calculationBase,
       character: {
@@ -56,7 +63,8 @@ export const App = () => {
         ...calculationBase.weapon,
         id: newWeaponId
       },
-      characterStatus: newCharacterStatus
+      characterStatus: newCharacterStatus,
+      weaponStatus: newWeaponStatus
     });
   };
 
@@ -122,12 +130,20 @@ export const App = () => {
     }
     //
 
+    //武器ステータスを更新する。
+    const newWeaponStatus = new Status();
+    const weaponType = characters[calculationBase.character.id]?.weaponType || null;
+    const levelRank = calculationBase.weapon.levelRank;
+    const refiningRank = calculationBase.weapon.refiningRank;
+    changeWeaponStatus(newWeaponStatus, newWeaponId, weaponType, levelRank, refiningRank);
+
     setCalculationBase({
       ...calculationBase,
       weapon: {
         ...calculationBase.weapon,
         id: newWeaponId
-      }
+      },
+      weaponStatus: newWeaponStatus
     });
   };
 
@@ -145,13 +161,22 @@ export const App = () => {
     //
 
     const newLevel = weaponLevelRanks[newLevelRank].level;
+
+    //武器ステータスを更新する。
+    const newWeaponStatus = new Status();
+    const weaponId = calculationBase.weapon.id;
+    const weaponType = characters[calculationBase.character.id]?.weaponType || null; //オプショナルチェーンでnull設定する。
+    const refiningRank = calculationBase.weapon.refiningRank;
+    changeWeaponStatus(newWeaponStatus, weaponId, weaponType, newLevelRank, refiningRank);
+
     setCalculationBase({
       ...calculationBase,
       weapon: {
         ...calculationBase.weapon,
         level: newLevel,
         levelRank: newLevelRank
-      }
+      },
+      weaponStatus: newWeaponStatus
     });
   };
 
@@ -168,12 +193,20 @@ export const App = () => {
     }
     //
 
+    //武器ステータスを更新する。
+    const newWeaponStatus = new Status();
+    const weaponId = calculationBase.weapon.id;
+    const weaponType = characters[calculationBase.character.id]?.weaponType || null; //オプショナルチェーンでnull設定する。
+    const levelRank = calculationBase.weapon.levelRank;
+    changeWeaponStatus(newWeaponStatus, weaponId, weaponType, levelRank, newWeaponRank);
+
     setCalculationBase({
       ...calculationBase,
       weapon: {
         ...calculationBase.weapon,
         refiningRank: newWeaponRank
-      }
+      },
+      weaponStatus: newWeaponStatus
     });
   };
 
@@ -242,6 +275,7 @@ export const App = () => {
 
   return (
     <>
+      {console.log(calculationBase.weaponStatus)}
       <div className="CharacterHeader">
         <Character onChange={onChangeCharacter} />
       </div>

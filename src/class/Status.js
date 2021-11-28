@@ -1,4 +1,5 @@
 import { characters } from "../data/character/characters";
+import { weapons } from "../data/weapon/weapons";
 
 export class Status {
   constructor() {
@@ -36,6 +37,33 @@ export const changeCharacterStatus = (status, id, levelRank) => {
   status.hp = characters[id].HP[levelRank];
   status.atk = characters[id].ATK[levelRank];
   status.def = characters[id].DEF[levelRank];
+};
+
+export const changeWeaponStatus = (status, id, weaponType, levelRank, refiningRank) => {
+  if (weaponType === null) {
+    return;
+  }
+  if (typeof weapons[weaponType][id] === "undefined") {
+    return;
+  }
+
+  const baseATK = weapons[weaponType][id].baseATK[levelRank];
+  const secondStatusType = weapons[weaponType][id].secondStatusType;
+  const secondStatus = weapons[weaponType][id].secondStatus[levelRank];
+
+  status.atk = baseATK;
+  if (secondStatusType !== null) {
+    const propertys = secondStatusType.split(".");
+    const targetProperty = propertys.pop();
+    let targetObject = status;
+
+    //オジェクトがネストしている場合は目標のプロパティまで探索する。
+    propertys.forEach((property) => {
+      targetObject = targetObject[property];
+    });
+
+    targetObject[targetProperty] = secondStatus;
+  }
 };
 
 export const statusPrecisions = {
