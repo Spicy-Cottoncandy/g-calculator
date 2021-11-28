@@ -2,7 +2,7 @@ import "./styles.css";
 import React, { useState } from "react";
 
 //components
-import { BaseStatus } from "./components/Status";
+import { DisplayStatus } from "./components/DisplayStatus";
 import { Character, CharacterLevel, Constellation } from "./components/Character";
 import { TalentsLevel } from "./components/TalentsLevel";
 import { Weapon, WeaponLevel, WeaponRank } from "./components/Weapon";
@@ -275,17 +275,12 @@ export const App = () => {
 
   return (
     <>
-      {console.log(calculationBase.weaponStatus)}
       <div className="CharacterHeader">
         <Character onChange={onChangeCharacter} />
       </div>
       <div className="CharacterSettingContainer">
         <div className="CharacterArea">
-          <p>
-            {typeof characters[calculationBase.character.id] !== "undefined"
-              ? characters[calculationBase.character.id].name
-              : ""}
-          </p>
+          <p>{characters[calculationBase.character.id]?.name || ""}</p>
           <div className="CharacterLevel">
             <p>Lv.</p>
             <CharacterLevel onChange={onChangeCharacterLevel} />
@@ -301,11 +296,7 @@ export const App = () => {
             <div className="WeaponText">
               <Weapon
                 weaponId={calculationBase.weapon.id}
-                weaponType={
-                  typeof characters[calculationBase.character.id] !== "undefined"
-                    ? characters[calculationBase.character.id].weaponType
-                    : null
-                }
+                weaponType={characters[calculationBase.character.id]?.weaponType || null}
                 onChange={onChangeWeapon}
               />
               {/*
@@ -336,11 +327,7 @@ export const App = () => {
       <div className="StatusContainer">
         {typeof characters[calculationBase.character.id] !== "undefined" ? (
           <>
-            <BaseStatus
-              level={calculationBase.character.levelRank}
-              calculationBase={calculationBase}
-              onchangeExtendStatus={onChangeExtendStatus}
-            />
+            <DisplayStatus calculationBase={calculationBase} onchangeExtendStatus={onChangeExtendStatus} />
           </>
         ) : (
           <p>データ無し</p>

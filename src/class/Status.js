@@ -3,11 +3,14 @@ import { weapons } from "../data/weapon/weapons";
 
 export class Status {
   constructor() {
-    this.hp = 0;
+    this.baseHp = 0;
+    this.bonusHp = 0;
     this.hpPercent = 0.0;
-    this.atk = 0;
+    this.baseAtk = 0;
+    this.bonusAtk = 0;
     this.atkPercent = 0.0;
-    this.def = 0;
+    this.baseDef = 0;
+    this.bonusDef = 0;
     this.defPercent = 0.0;
     this.elementalMastery = 0;
     this.criticalRate = 0.0;
@@ -31,12 +34,27 @@ export class Status {
 
 export const changeCharacterStatus = (status, id, levelRank) => {
   if (typeof characters[id] === "undefined") {
-    status.hp = status.atk = status.def = 0;
+    status.baseHp = status.baseAtk = status.baseDef = status.criticalRate = status.criticalDamage = 0;
     return;
   }
-  status.hp = characters[id].HP[levelRank];
-  status.atk = characters[id].ATK[levelRank];
-  status.def = characters[id].DEF[levelRank];
+
+  status.baseHp = characters[id].HP[levelRank];
+  status.baseAtk = characters[id].ATK[levelRank];
+  status.baseDef = characters[id].DEF[levelRank];
+  status.criticalRate = 5.0;
+  status.criticalDamage = 50.0;
+
+  //キャラクターの特別ステータスを設定する。
+  const propertys = characters[id].specialStatusType.split(".");
+  const targetProperty = propertys.pop();
+  const specialStatus = characters[id].specialStatus;
+  let targetObject = status;
+
+  //オジェクトがネストしている場合は目標のプロパティまで探索する。
+  propertys.forEach((property) => {
+    targetObject = targetObject[property];
+  });
+  targetObject[targetProperty] += specialStatus[levelRank];
 };
 
 export const changeWeaponStatus = (status, id, weaponType, levelRank, refiningRank) => {
@@ -51,7 +69,7 @@ export const changeWeaponStatus = (status, id, weaponType, levelRank, refiningRa
   const secondStatusType = weapons[weaponType][id].secondStatusType;
   const secondStatus = weapons[weaponType][id].secondStatus[levelRank];
 
-  status.atk = baseATK;
+  status.baseAtk = baseATK;
   if (secondStatusType !== null) {
     const propertys = secondStatusType.split(".");
     const targetProperty = propertys.pop();
@@ -67,11 +85,14 @@ export const changeWeaponStatus = (status, id, weaponType, levelRank, refiningRa
 };
 
 export const statusPrecisions = {
-  hp: 0,
+  baseHp: 0,
+  bonusHp: 0,
   hpPercent: 1,
-  atk: 0,
+  baseAtk: 0,
+  bonusAtk: 0,
   atkPercent: 1,
-  def: 0,
+  baseDef: 0,
+  bonusDef: 0,
   defPercent: 1,
   elementalMastery: 0,
   criticalRate: 1,
