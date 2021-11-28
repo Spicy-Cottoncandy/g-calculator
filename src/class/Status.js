@@ -43,6 +43,7 @@ export const changeCharacterStatus = (status, id, levelRank) => {
   status.baseDef = characters[id].DEF[levelRank];
   status.criticalRate = 5.0;
   status.criticalDamage = 50.0;
+  status.energyRecharge = 100.0;
 
   //キャラクターの特別ステータスを設定する。
   const propertys = characters[id].specialStatusType.split(".");
