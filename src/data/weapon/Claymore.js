@@ -7,6 +7,7 @@
 export const Claymore = {
   1: {
     name: "無工の剣",
+    image: "weapon/Claymore/w_1.png",
     star: 5,
     secondStatusType: "atkPercent",
     baseATK: [46, 122, 153, 235, 266, 308, 340, 382, 414, 457, 488, 532, 563, 608],

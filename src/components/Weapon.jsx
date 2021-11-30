@@ -53,6 +53,15 @@ export const Weapon = (props) => {
   );
 };
 
+export const WeaponImage = (props) => {
+  const { itemId, onClick } = props;
+  return (
+    <div className="SelectItem" onClick={onClick}>
+      <p>{itemId !== null ? itemId : "指定なし"}</p>
+    </div>
+  );
+};
+
 export const WeaponLevel = (props) => {
   const { onChange } = props;
 

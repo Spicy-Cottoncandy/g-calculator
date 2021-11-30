@@ -5,7 +5,8 @@ import React, { useState } from "react";
 import { DisplayStatus } from "./components/DisplayStatus";
 import { Character, CharacterLevel, Constellation } from "./components/Character";
 import { TalentsLevel } from "./components/TalentsLevel";
-import { Weapon, WeaponLevel, WeaponRank } from "./components/Weapon";
+import { Weapon, WeaponImage, WeaponLevel, WeaponRank } from "./components/Weapon";
+import { Grid, SelectItem } from "./components/Grid";
 
 //data
 import { characters } from "./data/character/characters";
@@ -273,6 +274,39 @@ export const App = () => {
     });
   };
 
+  /** Grid ----------------------------- */
+  const [grid, setGrid] = useState({ itemId: null, display: false });
+
+  const items1 = [];
+  const items2 = [];
+
+  const onClickGridItem = (event) => {
+    setGrid({
+      ...grid,
+      itemId: Number(event.currentTarget.dataset.itemid),
+      display: false
+    });
+  };
+
+  const onClickGridVisible = (event) => {
+    setGrid({
+      ...grid,
+      display: !grid.display
+    });
+  };
+
+  for (let i = 0; i <= 10; i++) {
+    items1.push({ text: "item" + i, value: i });
+  }
+  for (let i = 11; i <= 15; i++) {
+    items2.push({ text: "item" + i, value: i });
+  }
+  /** Grid ----------------------------- */
+
+  //https://github.com/codesandbox/codesandbox-client/issues/630
+  const env = process.env;
+  env.PUBLIC_URL = env.PUBLIC_URL || "";
+
   return (
     <>
       <div className="CharacterHeader">
@@ -291,7 +325,27 @@ export const App = () => {
           </div>
         </div>
         <div className="WeaponArea">
-          <div className="WeaponImage"></div>
+          <div className="WeaponImage">
+            <WeaponImage itemId={grid.itemId} onClick={onClickGridVisible} />
+            <div className={grid.display ? "GridArea" : "GridArea NoDisplay"}>
+              <Grid
+                title={"1"}
+                items={items1}
+                onClick={onClickGridItem}
+                currentItem={grid.itemId}
+                display={grid.display}
+              />
+              <Grid
+                title={"2"}
+                items={items2}
+                onClick={onClickGridItem}
+                currentItem={grid.itemId}
+                display={grid.display}
+              />
+            </div>
+
+            {/*<img src={`${env.PUBLIC_URL}/image/weapon/Claymore/w_1.png`} alt="weapon" />*/}
+          </div>
           <div className="WeaponSetting">
             <div className="WeaponText">
               <Weapon
