@@ -14,6 +14,7 @@ body {
   text-align: center;
 }
 
+/* Character -----------------------------------------*/
 .CharacterHeader {
   font-size: 0.7rem;
   background-color: #dcdcdc;
@@ -54,6 +55,7 @@ body {
   gap: 8%;
 }
 
+/* Weapon ---------------------------------*/
 .WeaponArea {
   display: flex;
   flex-direction: row;
@@ -71,9 +73,6 @@ body {
 .WeaponImage img {
   width: auto;
   height: 50px;
-}
-
-.WeaponSetting {
 }
 
 .WeaponText,
@@ -97,6 +96,16 @@ body {
 
 .WeaponItems > .WeaponRank > p {
   width: 60px;
+}
+
+/* Artifact --------------------------------*/
+.ArtifactArea > div {
+  width: 50px;
+  height: 50px;
+  background-color: #bbbbbb;
+  border: 1px dotted #333333;
+  z-index: 10;
+  margin-bottom: 10px;
 }
 
 .StatusContainer {
@@ -151,7 +160,7 @@ body {
 }
 
 /*  Grid ------------------------- */
-.SelectItem {
+.SelectedItem {
   display: flex;
   align-items: center;
   border-style: solid;

@@ -34,7 +34,7 @@ const refiningRanks = [
 export const WeaponImage = (props) => {
   const { text, itemId, onClick } = props;
   return (
-    <div className="SelectItem" onClick={onClick}>
+    <div className="SelectedItem" onClick={onClick}>
       <p>{itemId !== null ? text : "指定なし"}</p>
     </div>
   );

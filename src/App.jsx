@@ -71,6 +71,8 @@ export const App = () => {
       characterStatus: newCharacterStatus,
       weaponStatus: newWeaponStatus
     });
+    //Gridが表示される可能性があるので一律非表示
+    setWeaponImageGridDisplay(false);
   };
 
   /**
@@ -150,6 +152,7 @@ export const App = () => {
       },
       weaponStatus: newWeaponStatus
     });
+    //Gridが表示される可能性があるので一律非表示
     setWeaponImageGridDisplay(false);
   };
 
@@ -311,7 +314,13 @@ export const App = () => {
               itemId={calculationBase.weapon.id}
               onClick={onClickWeaponImage}
             />
-            <div className={weaponImageGridDisplay ? "WeaponImageGrid" : "WeaponImageGrid NoDisplay"}>
+            <div
+              className={
+                weaponImageGridDisplay && characters[calculationBase.character.id]?.weaponType
+                  ? "WeaponImageGrid"
+                  : "WeaponImageGrid NoDisplay"
+              }
+            >
               <WeaponImageGrid
                 weaponType={characters[calculationBase.character.id]?.weaponType || null}
                 display={weaponImageGridDisplay}
@@ -345,6 +354,11 @@ export const App = () => {
             </div>
           </div>
         </div>
+        <div className="ArtifactArea">
+          <div className="ArtifactSet1" />
+          <div className="ArtifactSet2" />
+        </div>
+
         <div className="TalentsLevelArea">
           <TalentsLevel talentsLevel={calculationBase.talentsLevel} onChange={onChangeTalensLevel} />
         </div>
