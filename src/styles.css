@@ -161,7 +161,7 @@ body {
   margin-bottom: 10px;
 }
 
-.GridArea {
+.WeaponImageGrid {
   background-color: #d0d0d0;
   width: 203px;
   padding: 3px;
@@ -178,7 +178,7 @@ body {
 .grid > * {
 }
 
-.title {
+.grid > .title {
   background-color: #ffffff;
   display: flex;
   align-items: center;
@@ -188,15 +188,11 @@ body {
   height: 20px;
 }
 
-.currentItem {
+.grid > .currentItem {
   background-color: #a0a0a0;
 }
 
-.NoDisplay {
-  display: none;
-}
-
-.item {
+.grid > .item {
   background-color: #ffffff;
   display: flex;
   align-items: center;
@@ -207,6 +203,10 @@ body {
   font-size: 0.5rem;
 }
 
-.item:hover {
+.grid > .item:hover {
   background-color: #a0a0a0;
+}
+
+.NoDisplay {
+  display: none;
 }

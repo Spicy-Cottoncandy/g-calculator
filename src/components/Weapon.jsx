@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
+//components
 import { SelectMenu } from "./Common";
+import { Grid } from "./Grid";
+//data
 import { weapons } from "../data/weapon/weapons";
 
 const levels = [
@@ -28,37 +31,52 @@ const refiningRanks = [
   { value: 5, text: "Rank5" }
 ];
 
-export const Weapon = (props) => {
-  const { weaponId, weaponType, onChange } = props;
+export const WeaponImage = (props) => {
+  const { text, itemId, onClick } = props;
+  return (
+    <div className="SelectItem" onClick={onClick}>
+      <p>{itemId !== null ? text : "指定なし"}</p>
+    </div>
+  );
+};
 
-  const [weaponItems, setWeaponItems] = useState([]);
+export const WeaponImageGrid = (props) => {
+  const { weaponType, display, onClick } = props;
+  const [weaponGridItems, setWeaponGridItems] = useState([]);
 
   useEffect(() => {
+    console.log(weaponType);
+
     const array = [];
     if (weaponType === null) {
-      setWeaponItems([]);
+      setWeaponGridItems([]);
       return;
     }
 
     Object.keys(weapons[weaponType]).forEach((key) => {
-      array.push({ value: key, text: weapons[weaponType][key].name });
+      array.push({ value: key, text: weapons[weaponType][key].name, star: weapons[weaponType][key].star });
     });
-    setWeaponItems(array);
+
+    setWeaponGridItems(array);
   }, [weaponType]);
 
   return (
     <>
-      <SelectMenu items={weaponItems} isRequired={false} value={weaponId} onChange={onChange} />
+      <div>
+        <Grid
+          title={"★5"}
+          items={weaponGridItems.filter((item) => item.star === 5)}
+          onClick={onClick}
+          display={display}
+        />
+        <Grid
+          title={"★4"}
+          items={weaponGridItems.filter((item) => item.star === 4)}
+          onClick={onClick}
+          display={display}
+        />
+      </div>
     </>
-  );
-};
-
-export const WeaponImage = (props) => {
-  const { itemId, onClick } = props;
-  return (
-    <div className="SelectItem" onClick={onClick}>
-      <p>{itemId !== null ? itemId : "指定なし"}</p>
-    </div>
   );
 };
 

@@ -5,8 +5,7 @@ import React, { useState } from "react";
 import { DisplayStatus } from "./components/DisplayStatus";
 import { Character, CharacterLevel, Constellation } from "./components/Character";
 import { TalentsLevel } from "./components/TalentsLevel";
-import { Weapon, WeaponImage, WeaponLevel, WeaponRank } from "./components/Weapon";
-import { Grid, SelectItem } from "./components/Grid";
+import { WeaponImage, WeaponImageGrid, WeaponLevel, WeaponRank } from "./components/Weapon";
 
 //data
 import { characters } from "./data/character/characters";
@@ -21,6 +20,11 @@ import { floorStatus } from "./functions/Util";
 
 export const App = () => {
   const [calculationBase, setCalculationBase] = useState(new CalculationBase());
+  const [weaponImageGridDisplay, setWeaponImageGridDisplay] = useState(false);
+
+  const onClickWeaponImage = (event) => {
+    setWeaponImageGridDisplay(!weaponImageGridDisplay);
+  };
 
   /**
    * onChangeCharacter
@@ -124,7 +128,7 @@ export const App = () => {
    * 武器
    */
   const onChangeWeapon = (event) => {
-    const newWeaponId = Number(event.target.value);
+    const newWeaponId = Number(event.currentTarget.dataset.itemid);
     //バリデーションを記述
     if (isNaN(newWeaponId)) {
       return;
@@ -146,6 +150,7 @@ export const App = () => {
       },
       weaponStatus: newWeaponStatus
     });
+    setWeaponImageGridDisplay(false);
   };
 
   /**
@@ -274,35 +279,7 @@ export const App = () => {
     });
   };
 
-  /** Grid ----------------------------- */
-  const [grid, setGrid] = useState({ itemId: null, display: false });
-
-  const items1 = [];
-  const items2 = [];
-
-  const onClickGridItem = (event) => {
-    setGrid({
-      ...grid,
-      itemId: Number(event.currentTarget.dataset.itemid),
-      display: false
-    });
-  };
-
-  const onClickGridVisible = (event) => {
-    setGrid({
-      ...grid,
-      display: !grid.display
-    });
-  };
-
-  for (let i = 0; i <= 10; i++) {
-    items1.push({ text: "item" + i, value: i });
-  }
-  for (let i = 11; i <= 15; i++) {
-    items2.push({ text: "item" + i, value: i });
-  }
-  /** Grid ----------------------------- */
-
+  /** 環境変数の設定 */
   //https://github.com/codesandbox/codesandbox-client/issues/630
   const env = process.env;
   env.PUBLIC_URL = env.PUBLIC_URL || "";
@@ -326,40 +303,35 @@ export const App = () => {
         </div>
         <div className="WeaponArea">
           <div className="WeaponImage">
-            <WeaponImage itemId={grid.itemId} onClick={onClickGridVisible} />
-            <div className={grid.display ? "GridArea" : "GridArea NoDisplay"}>
-              <Grid
-                title={"1"}
-                items={items1}
-                onClick={onClickGridItem}
-                currentItem={grid.itemId}
-                display={grid.display}
-              />
-              <Grid
-                title={"2"}
-                items={items2}
-                onClick={onClickGridItem}
-                currentItem={grid.itemId}
-                display={grid.display}
+            <WeaponImage
+              text={
+                weapons[characters[calculationBase.character.id]?.weaponType]?.[calculationBase.weapon.id]?.name ||
+                "---"
+              }
+              itemId={calculationBase.weapon.id}
+              onClick={onClickWeaponImage}
+            />
+            <div className={weaponImageGridDisplay ? "WeaponImageGrid" : "WeaponImageGrid NoDisplay"}>
+              <WeaponImageGrid
+                weaponType={characters[calculationBase.character.id]?.weaponType || null}
+                display={weaponImageGridDisplay}
+                onClick={onChangeWeapon}
               />
             </div>
-
-            {/*<img src={`${env.PUBLIC_URL}/image/weapon/Claymore/w_1.png`} alt="weapon" />*/}
           </div>
           <div className="WeaponSetting">
             <div className="WeaponText">
+              {/*
               <Weapon
                 weaponId={calculationBase.weapon.id}
                 weaponType={characters[calculationBase.character.id]?.weaponType || null}
                 onChange={onChangeWeapon}
               />
-              {/*
+              */}
               <p>
-                {calculationBase.character.id !== 0 && calculationBase.weapon.id !== 0
-                  ? weapons[characters[calculationBase.character.id].weaponType][calculationBase.weapon.id].name
-                  : ""}
+                {weapons[characters[calculationBase.character.id]?.weaponType]?.[calculationBase.weapon.id]?.name ||
+                  "---"}
               </p>
-                */}
             </div>
             <div className="WeaponItems">
               <div className="WeaponLevel">
