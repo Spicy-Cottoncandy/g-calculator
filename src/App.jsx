@@ -6,6 +6,7 @@ import { DisplayStatus } from "./components/DisplayStatus";
 import { Character, CharacterLevel, Constellation } from "./components/Character";
 import { TalentsLevel } from "./components/TalentsLevel";
 import { WeaponImage, WeaponImageGrid, WeaponLevel, WeaponRank } from "./components/Weapon";
+import { ArtifactImage, ArtifactImageGrid } from "./components/Artifact";
 
 //data
 import { characters } from "./data/character/characters";
@@ -21,9 +22,27 @@ import { floorStatus } from "./functions/Util";
 export const App = () => {
   const [calculationBase, setCalculationBase] = useState(new CalculationBase());
   const [weaponImageGridDisplay, setWeaponImageGridDisplay] = useState(false);
+  const [artifactImageGridDisplay, setArtifactImageGridDisplay] = useState([false, false]);
 
+  /**
+   * メニューの表示状態
+   */
   const onClickWeaponImage = (event) => {
     setWeaponImageGridDisplay(!weaponImageGridDisplay);
+  };
+
+  const onClickArtifactImage = (event) => {
+    const slot = Number(event.currentTarget.dataset.slot);
+    if (slot !== 0 && slot !== 1) {
+      return;
+    }
+    changeArtifactImageGridDisplay(slot);
+  };
+
+  const changeArtifactImageGridDisplay = (slot) => {
+    const newArtifactImageGridDisplay = [...artifactImageGridDisplay];
+    newArtifactImageGridDisplay[slot] = !newArtifactImageGridDisplay[slot];
+    setArtifactImageGridDisplay(newArtifactImageGridDisplay);
   };
 
   /**
@@ -220,6 +239,15 @@ export const App = () => {
   };
 
   /**
+   * onChangeArtifactSlot1st
+   * 聖遺物スロット1
+   */
+  const onChangeArtifactSlot1st = (event) => {
+    changeArtifactImageGridDisplay(0);
+    return;
+  };
+
+  /**
    * onChangeTalensLevel
    * 天賦レベル
    */
@@ -330,13 +358,6 @@ export const App = () => {
           </div>
           <div className="WeaponSetting">
             <div className="WeaponText">
-              {/*
-              <Weapon
-                weaponId={calculationBase.weapon.id}
-                weaponType={characters[calculationBase.character.id]?.weaponType || null}
-                onChange={onChangeWeapon}
-              />
-              */}
               <p>
                 {weapons[characters[calculationBase.character.id]?.weaponType]?.[calculationBase.weapon.id]?.name ||
                   "---"}
@@ -355,8 +376,15 @@ export const App = () => {
           </div>
         </div>
         <div className="ArtifactArea">
-          <div className="ArtifactSet1" />
-          <div className="ArtifactSet2" />
+          <div className="ArtifactSlot1st">
+            <div className="ArtifactImage">
+              <ArtifactImage slot="0" onClick={onClickArtifactImage} />
+            </div>
+            <div className={artifactImageGridDisplay[0] ? "ArtifactImageGrid" : "ArtifactImageGrid NoDisplay"}>
+              <ArtifactImageGrid display={artifactImageGridDisplay} onClick={onChangeArtifactSlot1st} />
+            </div>
+          </div>
+          <div className="ArtifactSlot2nd" />
         </div>
 
         <div className="TalentsLevelArea">

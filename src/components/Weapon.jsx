@@ -34,7 +34,7 @@ const refiningRanks = [
 export const WeaponImage = (props) => {
   const { text, itemId, onClick } = props;
   return (
-    <div className="SelectedItem" onClick={onClick}>
+    <div className="SelectedWeapon" onClick={onClick}>
       <p>{itemId !== null ? text : "指定なし"}</p>
     </div>
   );
@@ -45,8 +45,6 @@ export const WeaponImageGrid = (props) => {
   const [weaponGridItems, setWeaponGridItems] = useState([]);
 
   useEffect(() => {
-    console.log(weaponType);
-
     const array = [];
     if (weaponType === null) {
       setWeaponGridItems([]);
