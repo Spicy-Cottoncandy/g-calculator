@@ -1,12 +1,11 @@
 import React from "react";
 
 export const Grid = (props) => {
-  const { title, items, currentItem, display, onClick } = props;
+  const { title, items, currentItem, onClick } = props;
 
   let gridClassName = "grid";
-  if (!display) {
-    gridClassName += " NoDisplay";
-  }
+
+  console.log("Grid load");
 
   return (
     <>
@@ -21,7 +20,7 @@ export const Grid = (props) => {
           }
           return (
             <div key={item.value} className={className} data-itemid={item.value} onClick={onClick}>
-              <p>{item.text}</p>
+              {item.image ? <img src={item.image} alt={item.name} /> : <p>{item.text}</p>}
             </div>
           );
         })}

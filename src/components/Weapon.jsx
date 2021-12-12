@@ -31,6 +31,20 @@ const refiningRanks = [
   { value: 5, text: "Rank5" }
 ];
 
+export const WeaponSlot = (props) => {
+  const { text, weaponType, itemId, display, onClickImage, onClickGridItem } = props;
+  return (
+    <>
+      <div className="WeaponImage">
+        <WeaponImage text={text || "---"} itemId={itemId} onClick={onClickImage} />
+      </div>
+      <div className={display && weaponType ? "" : "NoDisplay"}>
+        <WeaponImageGrid weaponType={weaponType || null} onClick={onClickGridItem} />
+      </div>
+    </>
+  );
+};
+
 export const WeaponImage = (props) => {
   const { text, itemId, onClick } = props;
   return (
@@ -41,7 +55,7 @@ export const WeaponImage = (props) => {
 };
 
 export const WeaponImageGrid = (props) => {
-  const { weaponType, display, onClick } = props;
+  const { weaponType, onClick } = props;
   const [weaponGridItems, setWeaponGridItems] = useState([]);
 
   useEffect(() => {
@@ -60,19 +74,10 @@ export const WeaponImageGrid = (props) => {
 
   return (
     <>
-      <div>
-        <Grid
-          title={"★5"}
-          items={weaponGridItems.filter((item) => item.star === 5)}
-          onClick={onClick}
-          display={display}
-        />
-        <Grid
-          title={"★4"}
-          items={weaponGridItems.filter((item) => item.star === 4)}
-          onClick={onClick}
-          display={display}
-        />
+      <div className="ModalBackground" onClick={onClick}></div>
+      <div className="WeaponImageGrid">
+        <Grid title={"★5"} items={weaponGridItems.filter((item) => item.star === 5)} onClick={onClick} />
+        <Grid title={"★4"} items={weaponGridItems.filter((item) => item.star === 4)} onClick={onClick} />
       </div>
     </>
   );

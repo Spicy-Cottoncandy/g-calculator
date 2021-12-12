@@ -5,8 +5,8 @@ import React, { useState } from "react";
 import { DisplayStatus } from "./components/DisplayStatus";
 import { Character, CharacterLevel, Constellation } from "./components/Character";
 import { TalentsLevel } from "./components/TalentsLevel";
-import { WeaponImage, WeaponImageGrid, WeaponLevel, WeaponRank } from "./components/Weapon";
-import { ArtifactImage, ArtifactImageGrid } from "./components/Artifact";
+import { WeaponSlot, WeaponLevel, WeaponRank } from "./components/Weapon";
+import { ArtifactSlot, ArtifactText } from "./components/Artifact";
 
 //data
 import { characters } from "./data/character/characters";
@@ -31,8 +31,7 @@ export const App = () => {
     setWeaponImageGridDisplay(!weaponImageGridDisplay);
   };
 
-  const onClickArtifactImage = (event) => {
-    const slot = Number(event.currentTarget.dataset.slot);
+  const onClickArtifactImage = (slot) => {
     if (slot !== 0 && slot !== 1) {
       return;
     }
@@ -152,6 +151,7 @@ export const App = () => {
     const newWeaponId = Number(event.currentTarget.dataset.itemid);
     //バリデーションを記述
     if (isNaN(newWeaponId)) {
+      setWeaponImageGridDisplay(false);
       return;
     }
     //
@@ -243,8 +243,51 @@ export const App = () => {
    * 聖遺物スロット1
    */
   const onChangeArtifactSlot1st = (event) => {
-    changeArtifactImageGridDisplay(0);
-    return;
+    const newArtifactSlot1st = Number(event.currentTarget.dataset.itemid);
+    console.log(newArtifactSlot1st, calculationBase.artifacts.setId[1]);
+
+    if (isNaN(newArtifactSlot1st)) {
+      //バリデーションを記述
+      changeArtifactImageGridDisplay(0);
+      return;
+    }
+    changeArtifactSlot(0, newArtifactSlot1st);
+  };
+
+  /**
+   * onChangeArtifactSlot1st
+   * 聖遺物スロット1
+   */
+  const onChangeArtifactSlot2nd = (event) => {
+    const newArtifactSlot2nd = Number(event.currentTarget.dataset.itemid);
+    console.log(calculationBase.artifacts.setId[0], newArtifactSlot2nd);
+
+    if (isNaN(newArtifactSlot2nd)) {
+      //バリデーションを記述
+      changeArtifactImageGridDisplay(1);
+      return;
+    }
+    changeArtifactSlot(1, newArtifactSlot2nd);
+  };
+
+  const changeArtifactSlot = (slot, id) => {
+    const newSetId = [...calculationBase.artifacts.setId];
+    if (isNaN(id)) {
+      //バリデーションを記述
+      changeArtifactImageGridDisplay(slot);
+      return;
+    }
+    newSetId[slot] = id;
+
+    setCalculationBase({
+      ...calculationBase,
+      artifacts: {
+        ...calculationBase.artifacts,
+        setId: newSetId
+      }
+    });
+
+    changeArtifactImageGridDisplay(slot);
   };
 
   /**
@@ -333,28 +376,18 @@ export const App = () => {
           </div>
         </div>
         <div className="WeaponArea">
-          <div className="WeaponImage">
-            <WeaponImage
+          <div className="WeaponSlot">
+            <WeaponSlot
               text={
                 weapons[characters[calculationBase.character.id]?.weaponType]?.[calculationBase.weapon.id]?.name ||
                 "---"
               }
+              weaponType={characters[calculationBase.character.id]?.weaponType}
               itemId={calculationBase.weapon.id}
-              onClick={onClickWeaponImage}
+              display={weaponImageGridDisplay}
+              onClickImage={onClickWeaponImage}
+              onClickGridItem={onChangeWeapon}
             />
-            <div
-              className={
-                weaponImageGridDisplay && characters[calculationBase.character.id]?.weaponType
-                  ? "WeaponImageGrid"
-                  : "WeaponImageGrid NoDisplay"
-              }
-            >
-              <WeaponImageGrid
-                weaponType={characters[calculationBase.character.id]?.weaponType || null}
-                display={weaponImageGridDisplay}
-                onClick={onChangeWeapon}
-              />
-            </div>
           </div>
           <div className="WeaponSetting">
             <div className="WeaponText">
@@ -377,14 +410,25 @@ export const App = () => {
         </div>
         <div className="ArtifactArea">
           <div className="ArtifactSlot1st">
-            <div className="ArtifactImage">
-              <ArtifactImage slot="0" onClick={onClickArtifactImage} />
-            </div>
-            <div className={artifactImageGridDisplay[0] ? "ArtifactImageGrid" : "ArtifactImageGrid NoDisplay"}>
-              <ArtifactImageGrid display={artifactImageGridDisplay} onClick={onChangeArtifactSlot1st} />
-            </div>
+            <ArtifactSlot
+              slot="0"
+              itemId={calculationBase.artifacts.setId[0]}
+              display={artifactImageGridDisplay[0]}
+              onClickImage={() => onClickArtifactImage(0)}
+              onClickGridItem={onChangeArtifactSlot1st}
+            />
           </div>
-          <div className="ArtifactSlot2nd" />
+          <div className="ArtifactSlot2nd">
+            <ArtifactSlot
+              slot="1"
+              itemId={calculationBase.artifacts.setId[1]}
+              display={artifactImageGridDisplay[1]}
+              onClickImage={() => onClickArtifactImage(1)}
+              onClickGridItem={onChangeArtifactSlot2nd}
+            />
+          </div>
+          <ArtifactText itemId={calculationBase.artifacts.setId[0]} />
+          <ArtifactText itemId={calculationBase.artifacts.setId[1]} />
         </div>
 
         <div className="TalentsLevelArea">
