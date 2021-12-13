@@ -143,10 +143,12 @@ body {
 }
 
 .ArtifactImageGrid {
-  background-color: #d0d0d0;
+  /*  background-color: #d0d0d0;*/
   width: 203px;
   padding: 3px;
   position: relative;
+  /*すりガラス*/
+  backdrop-filter: blur(2px);
 }
 
 /* --------------------------------*/
@@ -251,7 +253,7 @@ body {
   height: 100%;
   z-index: 0;
   background-color: red;
-  opacity: 0.2;
+  opacity: 0;
 }
 
 .ModalWindow {
